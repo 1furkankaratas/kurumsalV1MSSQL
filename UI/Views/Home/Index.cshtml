@@ -1,0 +1,15 @@
+﻿@model Entities.DTOs.HomePageDto
+@{
+    ViewData["Title"] = "Anasayfa";
+}
+
+@if (Model.Sliders != null)
+{
+    <partial model="Model.Sliders" name="_Slider" />
+}
+
+
+@if (Model.Pages != null)
+{
+    <partial model="Model.Pages" name="_WeDoing"/>
+}

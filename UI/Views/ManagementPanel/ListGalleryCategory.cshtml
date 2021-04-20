@@ -1,0 +1,84 @@
+﻿@model List<Entities.Concrete.CategoryImage>
+@{
+    ViewData["Title"] = "Liste - Ketegori";
+    Layout = "~/Views/Shared/_ManagementPanelLayout.cshtml";
+}
+
+
+
+<div class="card">
+    <div class="card-header">
+        Kategoriler
+        <a asp-controller="ManagementPanel" asp-action="AddGalleryCategory" class="btn btn-sm btn-warning float-right">Ekle</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-bordered datatable">
+            <thead>
+                <tr>
+                    <th>Kategori Adı</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td>@category.Name</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="deleteBtnOpen(@category.Id)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <a class="btn btn-sm btn-warning" asp-controller="ManagementPanel" asp-action="UpdateGalleryCategory" asp-route-id="@category.Id">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+@foreach (var i in Model)
+{
+    <div class="modal fade" id="@i.Id">
+        <div class="modal-dialog modal-warning">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">@i.Name</h4>
+                    <button class="close" type="button" onclick="deleteBtnClose(@i.Id)"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bu kategoriyi silmek istediğinizden emin misiniz?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" onclick="deleteBtnClose(@i.Id)">İptal</button>
+                    <a class="btn btn-danger" asp-controller="ManagementPanel" asp-action="DeleteGalleryCategory" asp-route-id="@i.Id">Sil</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+        var deleteBtnOpen = function (id) {
+            document.getElementById(id).classList = "model fade show";
+            document.getElementById(id).setAttribute("style", "width: 100%; position: fixed; top: 100px; left: 0%; display: block");
+        }
+
+        var deleteBtnClose = function (id) {
+            document.getElementById(id).classList = "model fade";
+            document.getElementById(id).setAttribute("style", "");
+        }
+
+    </script>
+
+    <script src="~/admin/js/datatables.js"></script>
+}

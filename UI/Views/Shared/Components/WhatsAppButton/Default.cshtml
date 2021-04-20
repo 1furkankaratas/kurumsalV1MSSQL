@@ -1,0 +1,12 @@
+﻿@model Entities.Concrete.Setting
+
+
+@if (Model.WhatsAppPhone != null && Model.WhatsAppText != null)
+{
+
+
+    <a title="@Model.WhatsAppText" class="hover has-tooltip" data-placement="right" style="position: fixed; left: 20px; bottom: 20px;border:0px" target="_blank" href="https://api.whatsapp.com/send?phone=@Model.WhatsAppPhone"><img style="width: 40px" src="~/Whatsapp-Logo.png" alt="WhatsApp Icon"/></a>
+
+
+}
+

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @await Component.InvokeAsync("SiteSeoSettings")
+    <title>@ViewData["Title"]@await Component.InvokeAsync("SiteTitle")</title>
+    <link rel="stylesheet" type="text/css" href="~/style/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/style/css/plugins.css">
+    <link rel="stylesheet" type="text/css" href="~/style/revolution/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="~/style/revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="~/style/revolution/css/navigation.css">
+    <link rel="stylesheet" type="text/css" href="~/style/revolution/revolution-addons/filmstrip/css/revolution.addon.filmstrip.css">
+    <link rel="stylesheet" type="text/css" href="~/style/revolution/revolution-addons/typewriter/css/typewriter.css">
+    <link rel="stylesheet" type="text/css" href="~/style/type/icons.css">
+    <link rel="stylesheet" type="text/css" href="~/style.css">
+    <link rel="stylesheet" type="text/css" href="~/style/css/color/orange.css">
+</head>
+
+<body>
+    <div class="content-wrapper dark-wrapper inverse-text">
+        <nav class="navbar absolute nav-wrapper-dark text-uppercase inverse-text navbar-expand-lg">
+            <div class="container p-2">
+                <div class="navbar-header">
+                    <div class="navbar-brand">
+                        <a asp-controller="Home" asp-action="Index">@await Component.InvokeAsync("Logo")</a>
+                    </div>
+                    <div class="navbar-hamburger ml-auto d-lg-none d-xl-none"><button class="hamburger animate" data-toggle="collapse" data-target=".navbar-collapse"><span></span></button></div>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index" asp-controller="Home">Anasayfa</a>
+                        </li>
+                        @await Component.InvokeAsync("MenuLink")
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle" asp-controller="Gallery" asp-action="Index">Galeri</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle" asp-controller="Home" asp-action="Contact">İletişim</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                        <li class="nav-item">
+                            <a class="nav-link dropdown-toggle" asp-controller="ManagementPanel" asp-action="Index">Yönetim</a>
+                        </li>
+                        }
+                    </ul>
+                    <div class="navbar-divider"></div>
+                    <ul class="social social-mute social-s">
+                        @await Component.InvokeAsync("Social")
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        @RenderBody()
+        @await Component.InvokeAsync("Footer")
+    </div>
+
+    <script src="~/style/js/signalr.min.js"></script>
+    <script src="~/style/js/jquery.min.js"></script>
+    <script src="~/style/js/popper.min.js"></script>
+    <script src="~/style/js/bootstrap.min.js"></script>
+    <script src="~/style/revolution/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/style/revolution/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/style/revolution/revolution-addons/filmstrip/js/revolution.addon.filmstrip.min.js"></script>
+    <script src="~/style/revolution/revolution-addons/typewriter/js/revolution.addon.typewriter.min.js"></script>
+    <script src="~/style/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="~/style/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="~/style/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script src="~/style/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="~/style/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+    <script src="~/style/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="~/style/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script src="~/style/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="~/style/revolution/js/extensions/revolution.extension.video.min.js"></script>
+    <script src="~/style/js/plugins.js"></script>
+    <script src="~/style/js/scripts.js"></script>
+    @await Component.InvokeAsync("WhatsAppButton")
+    <script>
+        $(document).ready(() => {
+            const protocol = $(location).attr('protocol');
+            const host = $(location).attr('host');
+            const connection = new signalR.HubConnectionBuilder()
+                .configureLogging(signalR.LogLevel.None)
+                .withUrl(`${protocol}//${host}/usercounthub`)
+                .withAutomaticReconnect([1000, 2000, 3000, 5000, 5000, 5000, 5000, 5000, 5000, 3000]).build();
+
+            async function start() {
+                try {
+                    await connection.start();
+                } catch (error) {
+                    setTimeout(() => start(), 2000)
+                }
+            }
+
+            start();
+
+
+        }
+        );
+    </script>
+
+</body>
+
+</html>

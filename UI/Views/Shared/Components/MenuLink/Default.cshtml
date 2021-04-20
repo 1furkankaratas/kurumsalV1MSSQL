@@ -1,0 +1,31 @@
+﻿@model List<Entities.Concrete.Page>
+
+
+@if (Model != null)
+{
+    @if (Model.Count == 1)
+    {
+        foreach (var p in Model)
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="@SeoHelper.ToSeoUrl(p.Title)-@p.Id">@p.Title</a>
+            </li>
+        }
+    }
+    else if (Model.Count > 1)
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#">Sayfalar</a>
+            <ul class="dropdown-menu dropdown-menu-left">
+                @foreach (var p in Model)
+                {
+
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-item dropdown-toggle" href="@SeoHelper.ToSeoUrl(p.Title)-@p.Id">@p.Title</a>
+                    </li>
+
+                }
+            </ul>
+        </li>
+    }
+}

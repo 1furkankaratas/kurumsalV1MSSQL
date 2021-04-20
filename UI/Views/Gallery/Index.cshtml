@@ -1,0 +1,37 @@
+﻿@model List<Entities.DTOs.GalleryPageListDto>
+
+@{
+    ViewData["Title"] = "Galeri";
+}
+
+<div class="wrapper dark-wrapper inverse-text">
+    <div class="container inner">
+        <h2 class="title-color color-default mb-20 text-center">Galeri</h2>
+        <hr class="double w-25 mx-auto p-0">
+        <div class="space40"></div>
+        <div id="cube-grid-filter" class="cbp-filter-container text-center">
+            @await Component.InvokeAsync("GalleryPageCategory")
+        </div>
+        <div class="clearfix"></div>
+        <div class="space20"></div>
+        <div id="cube-grid" class="cbp light-gallery">
+
+            @if (Model!=null)
+            {
+                @foreach (var image in Model)
+                {
+                    <div class="cbp-item @foreach(var i in image.CategoryName){@i @(" ")}">
+                        <figure class="overlay overlay2">
+                            <a href="~/image/gallery/@image.Source" data-sub-html="@($"#caption{image.Id}")">
+                                <img src="~/image/gallery/@image.Source" alt="">
+                                <div id="@($"#caption{image.Id}")" class="d-none">
+                                    <p>@image.Description</p>
+                                </div>
+                            </a>
+                        </figure>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

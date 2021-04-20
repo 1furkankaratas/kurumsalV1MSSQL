@@ -1,0 +1,31 @@
+﻿@model UserEditViewModel
+@{
+    ViewData["Title"] = "Güncelle - Yönetici";
+    Layout = "~/Views/Shared/_ManagementPanelLayout.cshtml";
+}
+
+
+<form method="post" asp-controller="ManagementPanel" asp-action="UserEdit">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><strong>Güncelle</strong> Yönetici</div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">E-posta Adresi</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="text-input" name="Email" type="email" value="@Model.Email" required="">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-sm btn-primary" type="submit"> Güncelle</button>
+                    <button class="btn btn-sm btn-danger" type="reset"> Sıfırla</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</form>

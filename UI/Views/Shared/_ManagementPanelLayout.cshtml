@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="TR-tr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin Panel</title>
+    <link href="~/admin/css/style.css" rel="stylesheet">
+    @await RenderSectionAsync("Styles", false)
+    <link rel="stylesheet" href="~/admin/css/fontawesome/all.css">
+    <link rel="shortcut icon" href="~/image/logo/Favicon.png">
+    <meta name="robots" content="noindex">
+
+</head>
+
+<body class="c-app c-dark-theme c-no-layout-transition">
+    <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
+        <div class="c-sidebar-brand d-md-down-none">
+            @await Component.InvokeAsync("AdminLogo")
+        </div>
+        <ul class="c-sidebar-nav">
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="Index">
+                    <i class="fas fa-home fa-2x"></i> <span class="c-sidebar-nav-icon-title">Anasayfa</span>
+                </a>
+            </li>
+            <li class="c-sidebar-nav-title">Site Yönetim</li>
+            <li class="c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-dropdown-toggle">
+                    <i class="far fa-window-restore fa-2x"></i> <span class="c-sidebar-nav-icon-title">Sayfa</span>
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="ListPage"> Listele</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="AddPage"> Ekle</a></li>
+                </ul>
+            </li>
+            <li class="c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-dropdown-toggle">
+                    <i class="fas fa-chalkboard fa-2x"></i> <span class="c-sidebar-nav-icon-title">Slider</span>
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="ListSlider"> Listele</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="AddSlider"> Ekle</a></li>
+                </ul>
+            </li>
+            <li class="c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-dropdown-toggle">
+                    <i class="fab fa-buffer fa-2x"></i> <span class="c-sidebar-nav-icon-title">Galeri Kategori</span>
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="ListGalleryCategory"> Listele</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="AddGalleryCategory"> Ekle</a></li>
+                </ul>
+            </li>
+
+
+            <li class="c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-dropdown-toggle">
+                    <i class="far fa-image fa-2x"></i> <span class="c-sidebar-nav-icon-title">Galeri</span>
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="ListGallery"> Listele</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="AddGallery"> Ekle</a></li>
+                </ul>
+            </li>
+            <li class="c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-dropdown-toggle">
+                    <i class="fas fa-hashtag fa-2x"></i> <span class="c-sidebar-nav-icon-title">Sosyal</span>
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="ListSocialAccounts"> Listele</a></li>
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="AddSocialAccounts"> Ekle</a></li>
+                </ul>
+            </li>
+            <li class="c-sidebar-nav-dropdown">
+                <a class="c-sidebar-nav-dropdown-toggle">
+                    <i class="fas fa-cog fa-2x"></i> <span class="c-sidebar-nav-icon-title">Ayarlar</span>
+                </a>
+                <ul class="c-sidebar-nav-dropdown-items">
+                    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" asp-controller="ManagementPanel" asp-action="UpdateSettings"> Düzenle</a></li>
+                </ul>
+            </li>
+
+        </ul>
+        <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-unfoldable"></button>
+    </div>
+
+
+    <div class="c-wrapper">
+        <header class="c-header c-header-light c-header-fixed">
+            <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+            <a class="c-header-brand d-lg-none c-header-brand-sm-up-center" asp-controller="ManagementPanel" asp-action="Index">
+                <i class="fas fa-home fa-lg m-3"></i>
+            </a>
+            <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+            <ul class="c-header-nav mfs-auto">
+                <li class="c-header-nav-item px-3 c-d-legacy-none">
+                    <a class="btn btn-pill btn-light btn-sm" asp-controller="Home" asp-action="Index">
+                        Siteye Göz At
+                    </a>
+                </li>
+                <li class="c-header-nav-item px-3 c-d-legacy-none">
+                    <button class="c-class-toggler c-header-nav-btn" id="header-tooltip" data-target="body" data-class="c-dark-theme" data-toggle="c-tooltip" data-placement="bottom" title="Toggle Light/Dark Mode">
+                        <i class="fas fa-sun fa-lg c-d-dark-none"></i>
+                        <i class="fas fa-moon fa-lg c-d-default-none"></i>
+                    </button>
+                </li>
+            </ul>
+            <ul class="c-header-nav">
+                <li class="c-header-nav-item dropdown mr-4">
+                    <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <div class="c-avatar"><img class="c-avatar-img" src="~/admin/avatar.png" alt=""></div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right pt-0">
+                        <div class="dropdown-header bg-light py-2"><strong>Hesap</strong></div>
+                        <a class="dropdown-item" asp-controller="ManagementPanel" asp-action="UserEdit">
+                            <i class="fas fa-user-edit fa-lg m-3"></i> Kullanıcı Düzenle
+                        </a>
+                        <a class="dropdown-item" asp-controller="ManagementPanel" asp-action="PasswordChange">
+                            <i class="fas fa-key fa-lg m-3"></i> Şifre Değiştir
+                        </a>
+                        <a class="dropdown-item" asp-controller="Auth" asp-action="Logout">
+                            <i class="fas fa-sign-out-alt fa-lg m-3"></i> Oturumu Kapat
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div class="c-body">
+            <main class="c-main">
+                <div class="container-fluid">
+                    <div class="fade-in">
+                        @if ((string)ViewData["GeneralSuccess"] != null)
+                        {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            @ViewData["GeneralSuccess"]
+                            <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        }
+                        @if ((string)ViewData["GeneralError"] != null)
+                        {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @ViewData["GeneralError"]
+                            <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        }
+                        @RenderBody()
+                    </div>
+                </div>
+            </main>
+        </div>
+        <footer class="c-footer">
+            <div>
+                <a href="http://www.furkankaratas.com"></a> © 2021
+            </div>
+            <div class="mfs-auto">Powered by&nbsp;<a href="https://furkankaratas.com">Furkan Karataş</a></div>
+        </footer>
+    </div>
+
+
+    <script src="~/style/js/signalr.min.js"></script>
+    <script src="~/style/js/jquery.min.js"></script>
+    <script src="~/admin/vendors/css/coreui-pro/js/coreui.bundle.min.js"></script>
+    <!--[if IE]><!-->
+    <script src="~/admin/vendors/css/icons/js/svgxuse.min.js"></script>
+    <!--<![endif]-->
+
+    <script src="~/admin/vendors/css/chartjs/js/coreui-chartjs.bundle.js"></script>
+    <script src="~/admin/vendors/css/utils/js/coreui-utils.js"></script>
+    <script src="~/admin/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", false)
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            setTimeout(function () {
+                document.body.classList.remove('c-no-layout-transition')
+            }, 2000);
+        });
+    </script>
+
+    <script>
+        var darkMode = localStorage.getItem("darkMode");
+        if (darkMode != null && darkMode === "true") {
+            document.body.classList.remove("c-dark-theme");
+            document.body.classList.add("c-dark-theme");
+        }
+
+        if (darkMode != null && darkMode === "false") {
+            document.body.classList.remove("c-dark-theme");
+        }
+
+
+
+    </script>
+    <script>
+        $(document).ready(() => {
+            const protocol = $(location).attr('protocol');
+            const host = $(location).attr('host');
+            const connection = new signalR.HubConnectionBuilder()
+                .configureLogging(signalR.LogLevel.None)
+                .withUrl(`${protocol}//${host}/usercounthub`)
+                .withAutomaticReconnect([1000, 2000, 3000, 5000, 5000, 5000, 5000, 5000, 5000, 3000]).build();
+
+            async function start() {
+                try {
+                    await connection.start();
+                } catch (error) {
+                    setTimeout(() => start(), 2000)
+                }
+            }
+
+            start();
+
+            connection.on("userCount",
+                connectionId => {
+                    $("#userCount").html(`${connectionId.length}`);
+                });
+
+
+
+        }
+        );
+    </script>
+
+
+
+</body>
+
+</html>

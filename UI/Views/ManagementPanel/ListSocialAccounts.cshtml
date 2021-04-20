@@ -1,0 +1,80 @@
+﻿@model List<SocialMedia>
+@{
+    ViewData["Title"] = "Liste - Sosyal Medya";
+    Layout = "~/Views/Shared/_ManagementPanelLayout.cshtml";
+}
+
+
+
+<div class="card">
+    <div class="card-header">
+        Sosyal Medya Hesapları
+        <a asp-controller="ManagementPanel" asp-action="AddSocialAccounts" class="btn btn-sm btn-warning float-right">Ekle</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-bordered datatable">
+            <thead>
+                <tr>
+                    <th>Tip</th>
+                    <th>Adres</th>
+                    <th>İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var social in Model)
+                {
+                    <tr>
+                        <td>@social.Type</td>
+                        <td>@social.Link</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="deleteBtnOpen(@social.Id)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@foreach (var social in Model)
+{
+    <div class="modal fade" id="@social.Id">
+        <div class="modal-dialog modal-warning">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">@social.Type</h4>
+                    <button class="close" type="button" onclick="deleteBtnClose(@social.Id)"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bu hesabı silmek istediğinizden emin misiniz?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" onclick="deleteBtnClose(@social.Id)">İptal</button>
+                    <a class="btn btn-danger" asp-controller="ManagementPanel" asp-action="DeleteSocialAccounts" asp-route-id="@social.Id">Sil</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+        var deleteBtnOpen = function (id) {
+            document.getElementById(id).classList = "model fade show";
+            document.getElementById(id).setAttribute("style", "width: 100%; position: fixed; top: 100px; left: 0%; display: block");
+        }
+
+        var deleteBtnClose = function (id) {
+            document.getElementById(id).classList = "model fade";
+            document.getElementById(id).setAttribute("style", "");
+        }
+
+    </script>
+
+    <script src="~/admin/js/datatables.js"></script>
+}

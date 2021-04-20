@@ -1,0 +1,72 @@
+﻿@model UpdateGalleryPageModel
+@{
+    ViewData["Title"] = "Güncelle - Galeri";
+    Layout = "~/Views/Shared/_ManagementPanelLayout.cshtml";
+}
+
+
+<form method="post" enctype="multipart/form-data" asp-controller="ManagementPanel" asp-action="UpdateGallery">
+
+    <input type="hidden" value="@Model.Id" name="Id" />
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header"><strong>Kategori Seçimi</strong> <small>Galeri</small></div>
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <select class="form-control" id="multiple-select" name="CategoriesId" size="5" multiple="">
+                                    @foreach (var cat in (List<CategoryImageSelectBoxViewModel>)ViewData["AllCategories"])
+                                    {
+                                        if (cat.IsSelected)
+                                        {
+                                            <option selected="selected" value="@cat.Id">
+                                                @cat.Name
+                                            </option>
+                                        }
+
+                                        if (!cat.IsSelected)
+                                        {
+                                            <option value="@cat.Id">
+                                                @cat.Name
+                                            </option>
+                                        }
+
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><strong>Güncelle</strong> Galeri</div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Description">Açıklama</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Description" asp-for="Description">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="File">Resim Seç</label>
+                        <div class="col-md-9">
+                            <input id="File" type="file" name="File" accept="image/jpeg,image/jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-sm btn-primary" type="submit"> Güncelle</button>
+                    <button class="btn btn-sm btn-danger" type="reset"> Sıfırla</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>

@@ -1,0 +1,86 @@
+﻿@model List<GalleryPageListDto>
+@{
+    ViewData["Title"] = "Tüm Galeri";
+    Layout = "~/Views/Shared/_ManagementPanelLayout.cshtml";
+}
+<div class="card">
+    <div class="card-header">
+        Sayfalar
+        <a asp-controller="ManagementPanel" asp-action="AddGallery" class="btn btn-sm btn-warning float-right">Ekle</a>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @foreach (var gallery in Model)
+            {
+                <div class="col-12 col-lg-6 col-md-6">
+                    <div class="card">
+                        <div class="card-body p-3 d-flex align-items-center overflow-hidden">
+                            <div class="bg-gradient-primary mfe-3">
+                                <img style="max-height: 100px" src="~/image/gallery/@gallery.Source" />
+                            </div>
+                            <div>
+                                <div class="text-muted text-uppercase font-weight-bold small">@gallery.Description</div>
+
+                                <div class="text-value text-primary">
+                                    @foreach (var category in gallery.CategoryNameList)
+                                    {
+                                        <span class="badge badge-pill badge-info">@category</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer px-3 py-2">
+                            <a asp-controller="ManagementPanel" asp-action="UpdateGallery" asp-route-id="@gallery.Id" class="text-muted d-flex justify-content-between align-items-center float-right">
+                                <span class="btn btn-sm btn-warning"><i class="fas fa-pen fa-xs text-white"></i></span>
+                            </a>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="deleteBtnOpen(@gallery.Id)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@foreach (var i in Model)
+{
+    <div class="modal fade" id="@i.Id">
+        <div class="modal-dialog modal-warning">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">@i.Description</h4>
+                    <button class="close" type="button" onclick="deleteBtnClose(@i.Id)"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bu fotoğrafı silmek istediğinizden emin misiniz?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" onclick="deleteBtnClose(@i.Id)">İptal</button>
+                    <a class="btn btn-danger" asp-controller="ManagementPanel" asp-action="DeleteGallery" asp-route-id="@i.Id">Sil</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+@section Scripts
+{
+    <script>
+        var deleteBtnOpen = function (id) {
+            document.getElementById(id).classList = "model fade show";
+            document.getElementById(id).setAttribute("style", "width: 100%; position: fixed; top: 100px; left: 0%; display: block");
+        }
+
+        var deleteBtnClose = function (id) {
+            document.getElementById(id).classList = "model fade";
+            document.getElementById(id).setAttribute("style", "");
+        }
+
+    </script>
+}

@@ -1,0 +1,154 @@
+﻿@model SettingViewModel
+@{
+    ViewData["Title"] = "Site Ayarları";
+    Layout = "~/Views/Shared/_ManagementPanelLayout.cshtml";
+}
+
+
+<form method="post" enctype="multipart/form-data" asp-controller="ManagementPanel" asp-action="UpdateSettings">
+
+    <input type="hidden" value="@Model.Id" name="Id" />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><strong>Resim Seçimi</strong> <small>Ayarlar</small></div>
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="Logo">Logo Seç</label>
+                            <div class="col-md-9">
+                                <input id="Logo" type="file" name="Logo" accept="image/png,image/jpeg,image/jpg">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="Favicon">Favicon Seç</label>
+                            <div class="col-md-9">
+                                <input id="Favicon" type="file" name="Favicon" accept="image/png,image/jpeg,image/jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><strong>Düzenle</strong> Ayarlar</div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Title">Site Başlık 
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="Bu alan google görünürlüğü için önemlidir. Siteye girildiğinde sekmede gözükecek yazıdır."><i class="fas fa-question-circle"></i></a></label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Title" asp-for="Title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="CompanyName">
+                            Şirket Adı
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="Şirket adı veya ünvanı"><i class="fas fa-question-circle"></i></a>
+                        </label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="CompanyName" asp-for="CompanyName">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Meta">Meta Etiketleri
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="Bu alan google görünürlüğü için önemlidir. Sitenin içeriği hakkında tek kelime veya birkaç kelimeden oluşan gruplarla belirtilir.Şu şekilde yazınız araba,elma,kiralama,araba kiralama,vb. gibi virgül(,) ile ayırarak yazınız. "><i class="fas fa-question-circle"></i></a></label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Meta" asp-for="Meta">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Description">Açıklama
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="Bu alan google görünürlüğü için önemlidir. Siteniz hakkında kısa bir açıklama yazınız."><i class="fas fa-question-circle"></i></a></label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Description" asp-for="Description">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Phone">Telefon
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="İletişim sayfası ve diğer bölümlerde gözükmesini istediğiniz telefon numarasıdır. 05411114554 yada +9045685234 yada 0541 054 54 56 gibi hoşunuza gidecek şekilde yazabilirsiniz."><i class="fas fa-question-circle"></i></a></label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Phone" asp-for="Phone">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Address">Adres
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="İletişim sayfası ve diğer bölümlerde gözükmesini istediğiniz açık adres kısmıdır."><i class="fas fa-question-circle"></i></a></label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Address" asp-for="Address">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="WorkTime">Çalışma Saatleri
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="İletişim sayfası ve diğer bölümlerde gözükmesini istediğiniz çalışma saatleridir. Pzr./Cmt. 09:00/17:00 yada Hergün 09.00-18.00 gibi hoşunuza gidecek şekilde yazabilirsiniz."><i class="fas fa-question-circle"></i></a></label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="WorkTime" asp-for="WorkTime">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Email">E-Posta
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="İletişim sayfası ve diğer bölümlerde gözükmesini istediğiniz e-posta adresidir. mailadi@@mailadi.com gibi hoşunuza gidecek şekilde yazabilirsiniz."><i class="fas fa-question-circle"></i></a></label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Email" asp-for="Email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Maps">Google Harita Konum
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="İletişim sayfasındaki harita konumunu belirler. Google haritalara girdikten sonra eklemek istediğiniz konuma paylaş butonuna basarak harita yerleşimi sekmesinde oluşturulmuş link içerinde bulunan 'src=' ile başlayan ve 'https://www.google.com/maps/embed?pb=' benzeri linki gerekli alana yapıştırak siteye konum bilgisini ekleyebilirsiniz. "><i class="fas fa-question-circle"></i></a></label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="Maps" asp-for="Maps">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="WhatsAppText">WhatsApp Buton Yazısı
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="WhatsApp butonu üzerine gelince görünecek yazıdır. En fazla 40 karakter girilebilir."><i class="fas fa-question-circle"></i></a></label>
+                        <div class="col-md-9">
+                            <input class="form-control" maxlength="40" id="WhatsAppText" asp-for="WhatsAppText">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="WhatsAppPhone">WhatsApp telefon Numarası
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Yardım" data-content="WhatsApp iletişim numaranız. +90 ile başlayacak şekilde ve boşluk bırakmadan giriniz."><i class="fas fa-question-circle"></i></a></label>
+                        <div class="col-md-9">
+                            <input class="form-control" maxlength="15" id="WhatsAppPhone" asp-for="WhatsAppPhone">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-sm btn-primary" type="submit"> Güncelle</button>
+                    <button class="btn btn-sm btn-danger" type="reset"> Sıfırla</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</form>
+
+
+
+@section Scripts
+{
+    <script>
+        var Logo = document.getElementById("Logo");
+        var Favicon = document.getElementById("Favicon");
+
+        Logo.onchange = function () {
+            if (this.files[0].size > 200000) {
+                alert("Fotoğraf boyutu 200 kb'ı aşmamalıdır.");
+                this.value = "";
+            };
+        };
+        Favicon.onchange = function () {
+            if (this.files[0].size > 100000) {
+                alert("Fotoğraf boyutu 100 kb'ı aşmamalıdır.");
+                this.value = "";
+            };
+        };
+    </script>
+    <script src="~/admin/js/popovers.js"></script>
+
+}

@@ -1,0 +1,27 @@
+﻿
+@model List<Entities.Concrete.Page>
+
+<div class="space40"></div>
+<h2 class="title-color color-default mb-20 text-center">Neler Yapıyoruz</h2>
+<hr class="double w-25 mx-auto p-0">
+
+<div class="swiper-container-wrapper image-grid swiper-col3-full" data-aos="fade">
+    <div class="swiper-container text-center">
+        <div class="swiper-wrapper">
+            @foreach (var p in Model)
+            {
+<div class="swiper-slide swiper-full">
+    <figure class="overlay overlay4 p-large">
+        <a href="@SeoHelper.ToSeoUrl(p.Title)-@p.Id"><img class="img-fluid" style="height: 400px" src="~/image/page/@p.Image" alt="@p.Title"></a>
+        <figcaption class="d-flex text-left">
+            <div class="align-self-end mt-auto">
+                <h2 class="post-title">@p.Title</h2>
+            </div>
+        </figcaption>
+    </figure>
+</div>}
+        </div>
+    </div>
+    <div class="swiper-pagination gap-large"></div>
+    <div class="space60"></div>
+</div>

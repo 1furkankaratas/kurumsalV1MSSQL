@@ -1,0 +1,7 @@
+﻿@model Entities.Concrete.Setting
+
+
+@if (Model.Logo != null)
+{
+    <img src="#" style="max-height: 36px;" srcset="@String.Format("~/image/logo/{0}",Model.Logo) 1x,@String.Format("../image/logo/2x/{0}",Model.Logo) 2x" alt="">
+}

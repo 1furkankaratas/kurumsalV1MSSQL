@@ -1,0 +1,28 @@
+﻿@model Entities.Concrete.Page
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="wrapper dark-wrapper inverse-text">
+    <div class="container inner">
+        <div class="space40"></div>
+        <h2 class="title-color color-default mb-20 text-center">@Model.Title</h2>
+        <hr class="double w-25 mx-auto p-0">
+        <div class="space40"></div>
+        <div class="row">
+            <div class="col-lg-6 text-md-center">
+                <figure><img src="~/image/page/@Model.Image" alt="@Model.Title"></figure>
+            </div>
+            <div class="space30 d-block d-lg-none d-xl-none"></div>
+            <div class="col-lg-6">
+                @Html.Raw(Model.Text)
+                <ul class="social social-color social-s mb-15">
+                    @await Component.InvokeAsync("Social")
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="space10"></div>
+</div>
+
+

@@ -1,0 +1,102 @@
+﻿@model AdminIndexViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_ManagementPanelLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-6 col-md-3">
+        <a>
+            <div class="card text-white bg-gradient-info">
+                <div class="card-body">
+                    <div class="text-muted text-right mb-4">
+                        <i class="fas fa-user fa-4x"></i>
+                    </div>
+                    <div class="text-value-lg" id="userCount"></div><small class="text-muted text-uppercase font-weight-bold">Aktif Kullanıcı</small>
+                    <div class="progress progress-white progress-xs mt-3">
+                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <a asp-controller="ManagementPanel" asp-action="ListPage">
+            <div class="card text-white bg-gradient-danger">
+                <div class="card-body">
+                    <div class="text-muted text-right mb-4">
+                        <i class="far fa-window-restore fa-4x"></i>
+                    </div>
+                    <div class="text-value-lg">@Model.PageCount</div><small class="text-muted text-uppercase font-weight-bold">Sayfa</small>
+                    <div class="progress progress-white progress-xs mt-3">
+                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-md-3">
+        <a asp-controller="ManagementPanel" asp-action="ListSlider">
+            <div class="card text-white bg-gradient-dark">
+                <div class="card-body">
+                    <div class="text-muted text-right mb-4">
+                        <i class="fas fa-chalkboard fa-4x"></i>
+                    </div>
+                    <div class="text-value-lg">@Model.SlideCount</div><small class="text-muted text-uppercase font-weight-bold">Slider</small>
+                    <div class="progress progress-white progress-xs mt-3">
+                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <a asp-controller="ManagementPanel" asp-action="ListGallery">
+            <div class="card text-white bg-gradient-info">
+                <div class="card-body">
+                    <div class="text-muted text-right mb-4">
+                        <i class="far fa-image fa-4x"></i>
+                    </div>
+                    <div class="text-value-lg">@Model.GalleryCount</div><small class="text-muted text-uppercase font-weight-bold">Galeri</small>
+                    <div class="progress progress-white progress-xs mt-3">
+                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <a asp-controller="ManagementPanel" asp-action="ListGalleryCategory">
+            <div class="card text-white bg-gradient-primary">
+                <div class="card-body">
+                    <div class="text-muted text-right mb-4">
+                        <i class="fab fa-buffer fa-4x"></i>
+                    </div>
+                    <div class="text-value-lg">@Model.CategoryCount</div><small class="text-muted text-uppercase font-weight-bold">Kategori</small>
+                    <div class="progress progress-white progress-xs mt-3">
+                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <a asp-controller="ManagementPanel" asp-action="ListSocialAccounts">
+            <div class="card text-white bg-gradient-success">
+                <div class="card-body">
+                    <div class="text-muted text-right mb-4">
+                        <i class="fas fa-hashtag fa-4x"></i>
+                    </div>
+                    <div class="text-value-lg">@Model.SocialCount</div><small class="text-muted text-uppercase font-weight-bold">Hesap</small>
+                    <div class="progress progress-white progress-xs mt-3">
+                        <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+

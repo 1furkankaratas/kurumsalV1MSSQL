@@ -1,0 +1,15 @@
+﻿@model Entities.Concrete.Setting
+
+
+@if (Model.Favicon != null){
+    <link rel="shortcut icon" href="~/image/logo/@Model.Favicon">
+
+}
+@if (Model.Description != null)
+{
+    <meta name="description" content="@Model.Description" />
+}
+@if (Model.Meta != null)
+{
+    <meta name="keywords" content="@Model.Meta" />
+}

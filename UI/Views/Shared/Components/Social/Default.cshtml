@@ -1,0 +1,11 @@
+﻿@model List<Entities.Concrete.SocialMedia>
+
+
+
+@if (Model!=null)
+{
+    @foreach (var social in Model)
+    {
+        <li><a target="_blank" href="@social.Link"><i class="fa fa-@social.Type"></i></a></li>
+    }
+}

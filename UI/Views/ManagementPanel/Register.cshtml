@@ -1,0 +1,78 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Kayıt";
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Kayıt | Admin</title>
+
+    <link href="~/admin/css/style.css" rel="stylesheet">
+    <link href="~/style/css/font-awesome-5.min.css" rel="stylesheet">
+    <meta name="robots" content="noindex">
+</head>
+<body class="c-app c-dark-theme flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                @if ((string)ViewData["GeneralError"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @ViewData["GeneralError"]
+                        <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    </div>
+                }
+                <form asp-controller="ManagementPanel" asp-action="Register">
+                    <div class="card-group">
+                        <div class="card p-4">
+                            <div class="card-body">
+                                <h1>Kayıt</h1>
+                                <p class="text-muted">Kayıt için gerekli bilgileri giriniz...</p>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control" type="email" name="Email" placeholder="E-posta">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control" type="text" name="Username" placeholder="Kullanıcı Adı">
+                                </div>
+                                <div class="input-group mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-key"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control" type="password" name="Password" placeholder="Şifre">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-primary px-4" type="submit">Kayıt</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

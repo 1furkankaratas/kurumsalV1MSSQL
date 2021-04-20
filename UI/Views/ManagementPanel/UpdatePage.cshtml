@@ -1,0 +1,90 @@
+﻿@model Page
+@{
+    ViewData["Title"] = "Güncelle - Sayfa";
+    Layout = "~/Views/Shared/_ManagementPanelLayout.cshtml";
+}
+
+
+<form method="post" enctype="multipart/form-data" asp-controller="ManagementPanel" asp-action="UpdatePage">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><strong>Güncelle</strong> Sayfa</div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Başlık</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="text-input" asp-for="Title">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Açıklama</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="text-input" asp-for="Description">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="type">Sayfa Tipi</label>
+                        <div class="col-md-9">
+                            <select class="form-control" id="type" name="Type">
+                                @if (Model.Type == 0)
+                                {
+                                    <option selected="" value="0">Menü</option>
+                                    <option value="1">Neler Yapıyoruz</option>
+                                }
+                                else
+                                {
+                                    <option value="0">Menü</option>
+                                    <option selected="" value="1">Neler Yapıyoruz</option>
+                                }
+
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="file-input">Resim Seç</label>
+                        <div class="col-md-9">
+                            <input id="file-input" type="file" name="File">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <textarea hidden="" id="textArea" name="Text"></textarea>
+            <div class="card">
+                <div class="card-header">Sayfa İçerik</div>
+                <div class="card-body">
+
+                    <div id="editor">
+                        @Html.Raw(Model.Text)
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-sm btn-primary" id="send" type="submit"> Güncelle</button>
+                    <button class="btn btn-sm btn-danger" type="reset"> Sıfırla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Styles
+{
+    <link href="~/admin/vendors/quill/css/quill.coreui.css" rel="stylesheet">
+}
+@section Scripts
+{
+    <script src="~/admin/vendors/quill/js/quill.min.js"></script>
+    <script src="~/admin/js/text-editor.js"></script>
+    <script>
+        document.getElementById("send").onclick = function () { gonder() };
+        function gonder()
+        {
+            var text = document.getElementById("inner-editor").innerHTML;
+            document.getElementById("textArea").innerHTML = text;
+        }
+    </script>
+}

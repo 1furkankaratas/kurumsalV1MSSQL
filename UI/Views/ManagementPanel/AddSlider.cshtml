@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Ekle - Slider";
+    Layout = "~/Views/Shared/_ManagementPanelLayout.cshtml";
+}
+
+
+<form method="post" enctype="multipart/form-data" asp-controller="ManagementPanel" asp-action="AddSlider">
+
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><strong>Ekle</strong> Slider</div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Resim Adı</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="text-input" type="text" name="name" placeholder="Fotoğraf Adı">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="file-input">Resim Seç</label>
+                        <div class="col-md-9">
+                            <input id="file-input" type="file" name="File" accept="image/jpeg,image/jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-sm btn-primary" type="submit"> Kaydet</button>
+                    <button class="btn btn-sm btn-danger" type="reset"> Sıfırla</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>

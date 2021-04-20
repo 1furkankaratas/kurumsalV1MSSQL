@@ -1,0 +1,13 @@
+﻿@model List<Entities.Concrete.CategoryImage>
+
+<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">Tümü</div>
+
+
+@if (Model != null)
+{
+    @foreach (var category in Model)
+    {
+        <div data-filter=".@category.Name.ToLower().Replace(" ","")" class="cbp-filter-item">@category.Name</div>
+    }
+}
+

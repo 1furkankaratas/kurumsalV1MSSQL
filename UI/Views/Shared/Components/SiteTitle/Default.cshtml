@@ -1,0 +1,7 @@
+﻿@model Entities.Concrete.Setting
+
+
+@if (Model.Description != null && Model.Title != null)
+{
+    @String.Format(" | {0} | {1}", Model.Description, Model.Title)
+}

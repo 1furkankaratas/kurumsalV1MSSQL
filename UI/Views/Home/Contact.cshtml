@@ -1,0 +1,10 @@
+﻿@model Entities.DTOs.ContactPageDto
+@{
+    ViewData["Title"] = "İletişim";
+}
+
+
+@if (Model != null)
+{
+    <partial model="Model" name="_Contact" />
+}

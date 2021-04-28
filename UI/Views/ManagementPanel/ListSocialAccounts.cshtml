@@ -17,6 +17,7 @@
                 <tr>
                     <th>Tip</th>
                     <th>Adres</th>
+                    <th>Durum</th>
                     <th>İşlem</th>
                 </tr>
             </thead>
@@ -26,6 +27,12 @@
                     <tr>
                         <td>@social.Type</td>
                         <td>@social.Link</td>
+                        <td>
+                            <label class="c-switch c-switch-label c-switch-pill c-switch-success">
+                                <input class="c-switch-input isActive" type="checkbox" value="@social.Id" @Html.Raw(social.IsActive?"checked":"")><span class="c-switch-slider" data-checked="✓" data-unchecked="✕"></span>
+                            </label>
+
+                        </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-danger" onclick="deleteBtnOpen(@social.Id)">
                                 <i class="fas fa-trash"></i>
@@ -63,6 +70,19 @@
 
 @section Scripts
 {
+    <script>
+        $(".isActive").change(function () {
+            let id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "/panel/sosyal/isactive",
+                data: {
+                    id: id
+                },
+                dataType:'json'
+            });
+        });
+    </script>
     <script>
         var deleteBtnOpen = function (id) {
             document.getElementById(id).classList = "model fade show";

@@ -7,5 +7,6 @@ namespace Entities.Concrete
         public int Id { get; set; }
         public string Type { get; set; }
         public string Link { get; set; }
+        public bool IsActive { get; set; }
     }
 }

@@ -38,7 +38,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ISocialService.Get")]
-        //[ValidationAspect(typeof(SocialValidator))]
         public IResult Add(SocialMedia socialMedia)
         {
             _socialDal.Add(socialMedia);
@@ -46,7 +45,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ISocialService.Get")]
-        //[ValidationAspect(typeof(SocialValidator))]
         public IResult Delete(SocialMedia socialMedia)
         {
             _socialDal.Delete(socialMedia);
@@ -54,6 +52,7 @@ namespace Business.Concrete
 
         }
 
+        [CacheRemoveAspect("ISocialService.Get")]
         public IResult Update(SocialMedia socialMedia)
         {
             _socialDal.Update(socialMedia);

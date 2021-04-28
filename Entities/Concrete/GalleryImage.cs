@@ -7,5 +7,6 @@ namespace Entities.Concrete
         public int Id { get; set; }
         public string Description { get; set; }
         public string Source { get; set; }
+        public bool IsActive { get; set; }
     }
 }

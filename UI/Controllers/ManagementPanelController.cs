@@ -916,6 +916,18 @@ namespace UI.Controllers
 
         //Socials
 
+        [Route("sosyal/isactive")]
+        [HttpPost]
+        public JsonResult ChangeIsActiveSocial(int id)
+        {
+            var data = _socialService.GetById(id);
+            data.Data.IsActive = !data.Data.IsActive;
+
+            _socialService.Update(data.Data);
+            return null;
+        }
+
+
         [Route("sosyal/liste")]
         [HttpGet]
         public IActionResult ListSocialAccounts()

@@ -10,6 +10,7 @@ namespace Entities.DTOs
         public int Id { get; set; }
         public string Description { get; set; }
         public string Source { get; set; }
+        public bool IsActive { get; set; }
         public string CategoryName { get; set; }
 
     }
@@ -20,6 +21,7 @@ namespace Entities.DTOs
         public int Id { get; set; }
         public string Description { get; set; }
         public string Source { get; set; }
+        public bool IsActive { get; set; }
         public List<string> CategoryName { get; set; }
         public List<string> CategoryNameList { get; set; }
 

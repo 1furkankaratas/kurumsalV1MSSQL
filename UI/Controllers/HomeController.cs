@@ -25,7 +25,7 @@ namespace UI.Controllers
             _settingService = settingService;
         }
 
-        [Route("Anasayfa")]
+        [Route("anasayfa")]
         [Route("")]
         public IActionResult Index()
         {
@@ -37,8 +37,8 @@ namespace UI.Controllers
                 {
                     HomePageDto homePageDto = new HomePageDto
                     {
-                        Sliders = result.Data,
-                        Pages = result2.Data
+                        Sliders = result.Data.Where(x=>x.IsActive==true).ToList(),
+                        Pages = result2.Data.Where(x => x.IsActive == true).ToList()
                     };
 
                     return View(homePageDto);

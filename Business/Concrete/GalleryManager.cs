@@ -38,12 +38,11 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<GalleryImage> GetById(int id)
         {
-            return new SuccessDataResult<GalleryImage>(_galleryDal.Get(x=>x.Id==id));
+            return new SuccessDataResult<GalleryImage>(_galleryDal.Get(x => x.Id == id));
 
         }
 
         [CacheRemoveAspect("IGalleryService.Get")]
-        //[ValidationAspect(typeof(GalleryImageValidator))]
         public IResult Add(GalleryImage galleryImage)
         {
             _galleryDal.Add(galleryImage);
@@ -51,7 +50,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("IGalleryService.Get")]
-        //[ValidationAspect(typeof(GalleryImageValidator))]
         public IResult Delete(GalleryImage galleryImage)
         {
             var result = DeleteGalleryImage(galleryImage.Source);
@@ -65,17 +63,16 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("IGalleryService.Get")]
-        //[ValidationAspect(typeof(GalleryImageValidator))]
-        public IResult Update(GalleryImage galleryImage,string source)
+        public IResult Update(GalleryImage galleryImage, string source)
         {
-            if (source=="")
+            if (source == "")
             {
                 _galleryDal.Update(galleryImage);
                 return new SuccessResult();
             }
 
             var result = DeleteGalleryImage(source);
-            
+
             if (result.Success)
             {
                 _galleryDal.Update(galleryImage);
@@ -84,6 +81,15 @@ namespace Business.Concrete
 
             DeleteGalleryImage(galleryImage.Source);
             return new ErrorResult(Messages.GeneralError);
+        }
+
+        [CacheRemoveAspect("IGalleryService.Get")]
+        public IResult UpdateIsActive(GalleryImage galleryImage)
+        {
+
+            _galleryDal.Update(galleryImage);
+            return new SuccessResult();
+
         }
 
         [CacheAspect]
@@ -98,7 +104,7 @@ namespace Business.Concrete
             if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg")
             {
                 string dir = _hostingEnvironment.WebRootPath;
-                string fileName = DateTime.Now.ToString("yyyymmddfff") + new Random().Next(1000,9999);
+                string fileName = DateTime.Now.ToString("yyyymmddfff") + new Random().Next(1000, 9999);
                 string extension = Path.GetExtension(file.FileName);
                 fileName = fileName + extension;
                 string path = dir + savingPath;
@@ -129,7 +135,7 @@ namespace Business.Concrete
         public IResult DeleteGalleryImage(string source)
         {
             string dir = _hostingEnvironment.WebRootPath;
-            string path = dir+ ImageSavePaths.GallerySavePath + source;
+            string path = dir + ImageSavePaths.GallerySavePath + source;
             if (File.Exists(path))
             {
                 File.Delete(path);

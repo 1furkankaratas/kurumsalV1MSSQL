@@ -5,7 +5,7 @@
 }
 <div class="card">
     <div class="card-header">
-        Sayfalar
+        Galeri Listesi
         <a asp-controller="ManagementPanel" asp-action="AddGallery" class="btn btn-sm btn-warning float-right">Ekle</a>
     </div>
     <div class="card-body">
@@ -36,6 +36,9 @@
                             <button type="button" class="btn btn-sm btn-danger" onclick="deleteBtnOpen(@gallery.Id)">
                                 <i class="fas fa-trash"></i>
                             </button>
+                            <label class="c-switch c-switch-label c-switch-pill c-switch-success float-right">
+                                <input class="c-switch-input isActive" type="checkbox" value="@gallery.Id" @Html.Raw(gallery.IsActive ? "checked" : "")><span class="c-switch-slider" data-checked="✓" data-unchecked="✕"></span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -71,6 +74,22 @@
 
 @section Scripts
 {
+    <script>
+        $(".isActive").change(function () {
+            let id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "/panel/galeri/isactive",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function () {
+                    toastr.success("Durum güncellemesi başarılı", "İşlem başarılı");
+                }
+            });
+        });
+    </script>
     <script>
         var deleteBtnOpen = function (id) {
             document.getElementById(id).classList = "model fade show";

@@ -34,7 +34,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("IGalleryCategoryService.Get")]
-        //[ValidationAspect(typeof(GalleryCategoryValidator))]
         public IResult Add(GalleryCategory galleryCategory)
         {
             _galleryCategoryDal.Add(galleryCategory);
@@ -43,7 +42,6 @@ namespace Business.Concrete
         }
         
         [CacheRemoveAspect("IGalleryCategoryService.Get")]
-        //[ValidationAspect(typeof(GalleryCategoryValidator))]
         public IResult Delete(GalleryCategory galleryCategory)
         {
             _galleryCategoryDal.Delete(galleryCategory);
@@ -51,7 +49,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("IGalleryCategoryService.Get")]
-        //[ValidationAspect(typeof(GalleryCategoryValidator))]
         public IResult Update(GalleryCategory galleryCategory)
         {
             _galleryCategoryDal.Update(galleryCategory);

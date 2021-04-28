@@ -25,7 +25,7 @@ namespace UI.Controllers
             var result = _galleryService.GetGalleries();
             if (result.Success)
             {
-                return View(result.Data);
+                return View(result.Data.Where(x => x.IsActive == true).ToList());
             }
             return View();
         }

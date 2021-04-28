@@ -24,7 +24,10 @@ namespace UI.Controllers
 
             if (result.Success)
             {
-                return View(result.Data);
+                if (result.Data.IsActive)
+                {
+                    return View(result.Data);
+                }
             }
 
             return RedirectToAction("Index","Home");

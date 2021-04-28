@@ -1,26 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Business.Abstract;
+﻿using Business.Abstract;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
-using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
-using Encoder = System.Drawing.Imaging.Encoder;
+using System.IO;
 using Image = SixLabors.ImageSharp.Image;
 
 namespace Business.Concrete
@@ -52,7 +40,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ISettingService.Get")]
-        //[ValidationAspect(typeof(SettingValidator))]
         public IResult Update(Setting setting)
         {
             _settingDal.Update(setting);
@@ -62,7 +49,7 @@ namespace Business.Concrete
         [CacheRemoveAspect("ISettingService.Get")]
         public IDataResult<string> UploadLogo(IFormFile file)
         {
-            
+
 
             if (file.ContentType == "image/jpeg" || file.ContentType == "image/jpg" || file.ContentType == "image/png")
             {
@@ -121,7 +108,7 @@ namespace Business.Concrete
                 {
                     Directory.CreateDirectory(path);
                 }
-                
+
                 using var image = Image.Load(file.OpenReadStream());
 
                 image.SaveAsync(savePath);

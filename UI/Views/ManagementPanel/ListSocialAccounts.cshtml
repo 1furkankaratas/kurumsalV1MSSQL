@@ -79,7 +79,10 @@
                 data: {
                     id: id
                 },
-                dataType:'json'
+                dataType: 'json',
+                success: function () {
+                    toastr.success("Durum güncellemesi başarılı", "İşlem başarılı");
+                }
             });
         });
     </script>

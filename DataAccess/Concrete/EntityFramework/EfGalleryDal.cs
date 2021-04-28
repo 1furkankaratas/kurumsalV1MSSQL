@@ -19,7 +19,7 @@ namespace DataAccess.Concrete.EntityFramework
                     join cI in context.CategoryImages on cq.CategoryImageId equals cI.Id
                     select new GalleryPageDto
                     {
-                        Id = g.Id, Description = g.Description, Source = g.Source,
+                        Id = g.Id, Description = g.Description, Source = g.Source,IsActive = g.IsActive,
                         CategoryName = cI.Name
 
                     };
@@ -52,6 +52,7 @@ namespace DataAccess.Concrete.EntityFramework
                     {
                         Id = f.Id,
                         Description = f.Description,
+                        IsActive = f.IsActive,
                         Source = f.Source
                     };
                     List<string> er = new List<string>();

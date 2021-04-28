@@ -10,6 +10,7 @@
     @await RenderSectionAsync("Styles", false)
     <link rel="stylesheet" href="~/admin/css/fontawesome/all.css">
     <link rel="shortcut icon" href="~/image/logo/Favicon.png">
+    <link href="~/admin/vendors/toastr/css/toastr.min.css" rel="stylesheet" />
     <meta name="robots" content="noindex">
 
 </head>
@@ -137,17 +138,17 @@
                     <div class="fade-in">
                         @if ((string)ViewData["GeneralSuccess"] != null)
                         {
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            @ViewData["GeneralSuccess"]
-                            <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        </div>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                @ViewData["GeneralSuccess"]
+                                <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
                         }
                         @if ((string)ViewData["GeneralError"] != null)
                         {
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            @ViewData["GeneralError"]
-                            <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                @ViewData["GeneralError"]
+                                <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            </div>
                         }
                         @RenderBody()
                     </div>
@@ -165,6 +166,7 @@
 
     <script src="~/style/js/signalr.min.js"></script>
     <script src="~/style/js/jquery.min.js"></script>
+    <script src="~/admin/vendors/toastr/js/toastr.js"></script>
     <script src="~/admin/vendors/css/coreui-pro/js/coreui.bundle.min.js"></script>
     <!--[if IE]><!-->
     <script src="~/admin/vendors/css/icons/js/svgxuse.min.js"></script>

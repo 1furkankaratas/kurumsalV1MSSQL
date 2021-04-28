@@ -33,7 +33,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ICategoryImageService.Get")]
-        //[ValidationAspect(typeof(CategoryImageValidator))]
         public IResult Add(CategoryImage categoryImage)
         {
             _categoryImageDal.Add(categoryImage);
@@ -41,7 +40,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ICategoryImageService.Get")]
-        //[ValidationAspect(typeof(CategoryImageValidator))]
         public IResult Delete(CategoryImage categoryImage)
         {
             _categoryImageDal.Delete(categoryImage);
@@ -49,7 +47,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ICategoryImageService.Get")]
-        //[ValidationAspect(typeof(CategoryImageValidator))]
         public IResult Update(CategoryImage categoryImage)
         {
             _categoryImageDal.Update(categoryImage);

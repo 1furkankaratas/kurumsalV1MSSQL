@@ -36,7 +36,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Page>> GetByType(int type)
         {
-            return new SuccessDataResult<List<Page>>(_pageDal.GetAll(x => x.Type == type));
+            return new SuccessDataResult<List<Page>>(_pageDal.GetAll(x => x.Type == type && x.IsActive));
         }
 
         [CacheRemoveAspect("IPageService.Get")]

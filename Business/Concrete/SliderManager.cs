@@ -37,7 +37,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ISliderService.Get")]
-        //[ValidationAspect(typeof(SliderValidator))]
         public IResult Add(Slider slider)
         {
             _sliderDal.Add(slider);
@@ -46,7 +45,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ISliderService.Get")]
-        //[ValidationAspect(typeof(SliderValidator))]
         public IResult Delete(Slider slider)
         {
             var result = DeleteSliderImage(slider);
@@ -61,7 +59,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ISliderService.Get")]
-        //[ValidationAspect(typeof(SliderValidator))]
         public IResult Update(Slider slider)
         {
             _sliderDal.Update(slider);
@@ -70,7 +67,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ISliderService.Get")]
-        //[ValidationAspect(typeof(SliderValidator))]
         private IResult DeleteSliderImage(Slider slider)
         {
             string dir = _hostingEnvironment.WebRootPath;

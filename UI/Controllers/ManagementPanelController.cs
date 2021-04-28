@@ -529,7 +529,7 @@ namespace UI.Controllers
         [HttpGet]
         public IActionResult AddGallery()
         {
-            ViewData["Categories"] = (List<CategoryImage>)(_categoryImageService.GetAll()).Data;
+            ViewData["Categories"] = (List<CategoryImage>)(_categoryImageService.GetAll()).Data.Where(x=>x.IsActive).ToList();
             return View();
         }
 
@@ -541,7 +541,7 @@ namespace UI.Controllers
             if (!ModelState.IsValid)
             {
                 ViewData["GeneralError"] = Messages.RequiredInput;
-                ViewData["Categories"] = (List<CategoryImage>)(_categoryImageService.GetAll()).Data;
+                ViewData["Categories"] = (List<CategoryImage>)(_categoryImageService.GetAll()).Data.Where(x => x.IsActive);
                 return View(model);
             }
 
@@ -916,17 +916,6 @@ namespace UI.Controllers
 
         //Socials
 
-        [Route("sosyal/isactive")]
-        [HttpPost]
-        public JsonResult ChangeIsActiveSocial(int id)
-        {
-            var data = _socialService.GetById(id);
-            data.Data.IsActive = !data.Data.IsActive;
-
-            _socialService.Update(data.Data);
-            return null;
-        }
-
 
         [Route("sosyal/liste")]
         [HttpGet]
@@ -1101,6 +1090,62 @@ namespace UI.Controllers
 
             ViewData["GeneralError"] = Messages.GeneralError;
             return View(model);
+        }
+
+        [Route("sosyal/isactive")]
+        [HttpPost]
+        public JsonResult ChangeIsActiveSocial(int id)
+        {
+            var data = _socialService.GetById(id);
+            data.Data.IsActive = !data.Data.IsActive;
+
+            _socialService.Update(data.Data);
+            return new JsonResult(true);
+        }
+
+
+        [Route("slider/isactive")]
+        [HttpPost]
+        public JsonResult ChangeIsActiveSlider(int id)
+        {
+            var data = _sliderService.GetById(id);
+            data.Data.IsActive = !data.Data.IsActive;
+
+            _sliderService.Update(data.Data);
+            return new JsonResult(true);
+        }
+
+        [Route("sayfa/isactive")]
+        [HttpPost]
+        public JsonResult ChangeIsActivePage(int id)
+        {
+            var data = _pageService.GetById(id);
+            data.Data.IsActive = !data.Data.IsActive;
+
+            _pageService.Update(data.Data);
+            return new JsonResult(true);
+        }
+
+        [Route("galeri/isactive")]
+        [HttpPost]
+        public JsonResult ChangeIsActiveGallery(int id)
+        {
+            var data = _galleryService.GetById(id);
+            data.Data.IsActive = !data.Data.IsActive;
+
+            _galleryService.UpdateIsActive(data.Data);
+            return new JsonResult(true);
+        }
+
+        [Route("kategori/isactive")]
+        [HttpPost]
+        public JsonResult ChangeIsActiveCategory(int id)
+        {
+            var data = _categoryImageService.GetById(id);
+            data.Data.IsActive = !data.Data.IsActive;
+
+            _categoryImageService.Update(data.Data);
+            return new JsonResult(true);
         }
 
 

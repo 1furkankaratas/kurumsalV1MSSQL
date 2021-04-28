@@ -14,6 +14,7 @@ namespace Business.Abstract
         IResult Add(GalleryImage galleryImage);
         IResult Delete(GalleryImage galleryImage);
         IResult Update(GalleryImage galleryImage,string source);
+        IResult UpdateIsActive(GalleryImage galleryImage);
 
         IDataResult<List<GalleryPageListDto>> GetGalleries();
 

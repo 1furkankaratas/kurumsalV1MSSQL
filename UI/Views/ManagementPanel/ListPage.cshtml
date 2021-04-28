@@ -17,38 +17,45 @@
                     <th>Sayfa Adı</th>
                     <th>Sayfa Tipi</th>
                     <th>Fotoğraf</th>
+                    <th>Durum</th>
                     <th>İşlem</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var pg in Model)
                 {
-                    <tr>
-                        <td>@pg.Title</td>
-                        @if (pg.Type == 0)
-                        {
-                            <td>
-                                Menü
-                            </td>
-
-                        }
-                        else
-                        {
-                            <td>
-                                Neler Yapıyoruz
-                            </td>
-
-                        }
-                        <td><a target="_blank" class="text-info" href="~/image/page/@pg.Image">Link</a></td>
+                <tr>
+                    <td>@pg.Title</td>
+                    @if (pg.Type == 0)
+                    {
                         <td>
-                            <button type="button" class="btn btn-sm btn-danger" onclick="deleteBtnOpen(@pg.Id)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <a class="btn btn-sm btn-warning" asp-controller="ManagementPanel" asp-action="UpdatePage" asp-route-id="@pg.Id">
-                                <i class="fas fa-pen"></i>
-                            </a>
+                            Menü
                         </td>
-                    </tr>
+
+                    }
+                    else
+                    {
+                        <td>
+                            Neler Yapıyoruz
+                        </td>
+
+                    }
+                    <td><a target="_blank" class="text-info" href="~/image/page/@pg.Image">Link</a></td>
+                    <td>
+                        <label class="c-switch c-switch-label c-switch-pill c-switch-success">
+                            <input class="c-switch-input isActive" type="checkbox" value="@pg.Id" @Html.Raw(pg.IsActive ? "checked" : "")><span class="c-switch-slider" data-checked="✓" data-unchecked="✕"></span>
+                        </label>
+
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" onclick="deleteBtnOpen(@pg.Id)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <a class="btn btn-sm btn-warning" asp-controller="ManagementPanel" asp-action="UpdatePage" asp-route-id="@pg.Id">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -82,6 +89,22 @@
 
 @section Scripts
 {
+    <script>
+        $(".isActive").change(function () {
+            let id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "/panel/sayfa/isactive",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function () {
+                    toastr.success("Durum güncellemesi başarılı", "İşlem başarılı");
+                }
+            });
+        });
+    </script>
     <script>
         var deleteBtnOpen = function (id) {
             document.getElementById(id).classList = "model fade show";

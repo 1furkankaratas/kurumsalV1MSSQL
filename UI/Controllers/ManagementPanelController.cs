@@ -1061,10 +1061,6 @@ namespace UI.Controllers
         [HttpPost]
         public JsonResult DeleteGalleryCategory(int id)
         {
-            if (id == 0)
-            {
-                return new JsonResult(Messages.GeneralError);
-            }
 
             var data = _categoryImageService.GetById(id);
             if (data.Data != null)
@@ -1090,16 +1086,32 @@ namespace UI.Controllers
         [Route("sosyal/sil")]
         public JsonResult DeleteSocialAccounts(int id)
         {
-            if (id == 0)
-            {
-                return new JsonResult(Messages.GeneralError);
-            }
 
             var data = _socialService.GetById(id);
 
             if (data.Data != null)
             {
                 var result = _socialService.Delete(data.Data);
+
+                if (result.Success)
+                {
+                    return new JsonResult(result.Message);
+                }
+            }
+
+            return new JsonResult(Messages.GeneralError);
+        }
+
+        [HttpPost]
+        [Route("slider/sil")]
+        public JsonResult DeleteSlider(int id)
+        {
+
+            var data = _sliderService.GetById(id);
+
+            if (data.Data != null)
+            {
+                var result = _sliderService.Delete(data.Data);
 
                 if (result.Success)
                 {

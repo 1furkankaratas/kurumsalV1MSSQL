@@ -579,54 +579,7 @@ namespace UI.Controllers
             return View(model);
         }
 
-        [Route("galeri/sil")]
-        [HttpGet]
-        public IActionResult DeleteGallery(int id)
-        {
-            if (id == 0)
-            {
-                ViewData["GeneralError"] = Messages.GeneralError;
-                return RedirectToAction("ListGallery", "ManagementPanel");
-            }
-
-            var data = _galleryService.GetById(id);
-            if (data.Data!=null)
-            {
-                var selectedCategories = _galleryCategoryService.GetGalleryId(data.Data.Id);
-                var dataDelete = _galleryService.Delete(data.Data);
-                if (dataDelete.Success)
-                {
-                    bool isSuccess = true;
-                    foreach (var selCat in selectedCategories.Data)
-                    {
-                        var res = _galleryCategoryService.Delete(selCat);
-                        isSuccess = res.Success;
-                        if (!isSuccess)
-                        {
-                            break;
-                        }
-                    }
-
-                    if (!isSuccess)
-                    {
-                        foreach (var selCat in selectedCategories.Data)
-                        {
-                            _galleryCategoryService.Add(selCat);
-                        }
-                    }
-                    else
-                    {
-                        ViewData["GeneralSuccess"] = dataDelete.Message;
-                        return RedirectToAction("ListGallery", "ManagementPanel");
-                    }
-
-                }
-                _galleryService.Add(data.Data);
-            }
-
-            ViewData["GeneralError"] = Messages.GeneralError;
-            return RedirectToAction("ListGallery", "ManagementPanel");
-        }
+        
 
         [Route("galeri/guncelle")]
         [HttpGet]
@@ -1148,6 +1101,48 @@ namespace UI.Controllers
             return new JsonResult(true);
         }
 
+        [Route("galeri/sil")]
+        [HttpPost]
+        public JsonResult DeleteGallery(int id)
+        {
+
+            var data = _galleryService.GetById(id);
+            if (data.Data != null)
+            {
+                var selectedCategories = _galleryCategoryService.GetGalleryId(data.Data.Id);
+                var dataDelete = _galleryService.Delete(data.Data);
+                if (dataDelete.Success)
+                {
+                    bool isSuccess = true;
+                    foreach (var selCat in selectedCategories.Data)
+                    {
+                        var res = _galleryCategoryService.Delete(selCat);
+                        isSuccess = res.Success;
+                        if (!isSuccess)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (!isSuccess)
+                    {
+                        foreach (var selCat in selectedCategories.Data)
+                        {
+                            _galleryCategoryService.Add(selCat);
+                        }
+                    }
+                    else
+                    {
+
+                        return new JsonResult(dataDelete.Message);
+                    }
+
+                }
+                _galleryService.Add(data.Data);
+            }
+
+            return new JsonResult(Messages.GeneralError);
+        }
 
 
     }

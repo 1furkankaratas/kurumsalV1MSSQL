@@ -168,21 +168,11 @@
     <script src="~/style/js/jquery.min.js"></script>
     <script src="~/admin/vendors/toastr/js/toastr.js"></script>
     <script src="~/admin/vendors/css/coreui-pro/js/coreui.bundle.min.js"></script>
-    <!--[if IE]><!-->
-    <script src="~/admin/vendors/css/icons/js/svgxuse.min.js"></script>
-    <!--<![endif]-->
-
     <script src="~/admin/vendors/css/chartjs/js/coreui-chartjs.bundle.js"></script>
     <script src="~/admin/vendors/css/utils/js/coreui-utils.js"></script>
     <script src="~/admin/js/main.js"></script>
+    <script src="~/admin/js/bootbox.min.js"></script>
     @await RenderSectionAsync("Scripts", false)
-    <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
-            setTimeout(function () {
-                document.body.classList.remove('c-no-layout-transition')
-            }, 2000);
-        });
-    </script>
 
     <script>
         var darkMode = localStorage.getItem("darkMode");

@@ -102,7 +102,7 @@ namespace UI.Controllers
         {
             AdminIndexViewModel model = new AdminIndexViewModel
             {
-                CategoryCount = _galleryCategoryService.GetAll().Data.Count,
+                CategoryCount = _categoryImageService.GetAll().Data.Count,
                 GalleryCount = _galleryService.GetAll().Data.Count,
                 PageCount = _pageService.GetAll().Data.Count,
                 SlideCount = _sliderService.GetAll().Data.Count,

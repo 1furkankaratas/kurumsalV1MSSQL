@@ -24,7 +24,7 @@
             <tbody>
                 @foreach (var pg in Model)
                 {
-                <tr>
+                <tr id="cont-@pg.Id">
                     <td>@pg.Title</td>
                     @if (pg.Type == 0)
                     {
@@ -48,7 +48,7 @@
 
                     </td>
                     <td>
-                        <button type="button" class="btn btn-sm btn-danger" onclick="deleteBtnOpen(@pg.Id)">
+                        <button type="button" class="btn btn-sm btn-danger btnDel" value="@pg.Id">
                             <i class="fas fa-trash"></i>
                         </button>
                         <a class="btn btn-sm btn-warning" asp-controller="ManagementPanel" asp-action="UpdatePage" asp-route-id="@pg.Id">
@@ -63,28 +63,6 @@
 </div>
 
 
-@foreach (var i in Model)
-{
-    <div class="modal fade" id="@i.Id">
-        <div class="modal-dialog modal-warning">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">@i.Title</h4>
-                    <button class="close" type="button" onclick="deleteBtnClose(@i.Id)"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body">
-                    <p>Bu sayfayı silmek istediğinizden emin misiniz?</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" onclick="deleteBtnClose(@i.Id)">İptal</button>
-                    <a class="btn btn-danger" asp-controller="ManagementPanel" asp-action="DeletePage" asp-route-id="@i.Id">Sil</a>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-}
 
 
 @section Scripts
@@ -106,15 +84,33 @@
         });
     </script>
     <script>
-        var deleteBtnOpen = function (id) {
-            document.getElementById(id).classList = "model fade show";
-            document.getElementById(id).setAttribute("style", "width: 100%; position: fixed; top: 100px; left: 0%; display: block");
-        }
 
-        var deleteBtnClose = function (id) {
-            document.getElementById(id).classList = "model fade";
-            document.getElementById(id).setAttribute("style", "");
-        }
+
+        $(".btnDel").click(function () {
+            let id = $(this).val();
+            var item = $("#cont-" + id);
+            bootbox.confirm("Silmek istediğinizden emin misiniz?",
+                function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/panel/sayfa/sil",
+                            data: { id: id },
+                            dataType: 'json',
+                            success: function () {
+                                item.animate({ opacity: 0 }, function () {
+                                    this.remove();
+                                });
+
+                                toastr.success("Silme işlemi başarılı...", "İşlem başarılı");
+                            }
+                        });
+                    }
+
+                });
+        });
+
 
     </script>
 

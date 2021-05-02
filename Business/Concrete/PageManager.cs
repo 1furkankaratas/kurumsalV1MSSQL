@@ -8,16 +8,19 @@ using Entities.Concrete;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Business.Concrete
 {
     public class PageManager : IPageService
     {
         private readonly IPageDal _pageDal;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public PageManager(IPageDal pageDal)
+        public PageManager(IPageDal pageDal, IHostingEnvironment hostingEnvironment)
         {
             _pageDal = pageDal;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [CacheAspect]
@@ -39,7 +42,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("IPageService.Get")]
-        //[ValidationAspect(typeof(PageValidator))]
         public IResult Add(Page page)
         {
             _pageDal.Add(page);
@@ -47,7 +49,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("IPageService.Get")]
-        //[ValidationAspect(typeof(PageValidator))]
         public IResult Delete(Page page)
         {
             var result = DeletePageImage(page.Image);
@@ -62,7 +63,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("IPageService.Get")]
-        //[ValidationAspect(typeof(PageValidator))]
         public IResult UpdateWithImage(Page page, string source)
         {
             var result = DeletePageImage(source);
@@ -77,7 +77,6 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("IPageService.Get")]
-        //[ValidationAspect(typeof(PageValidator))]
         public IResult Update(Page page)
         {
 
@@ -88,7 +87,8 @@ namespace Business.Concrete
         [CacheRemoveAspect("IPageService.Get")]
         private IResult DeletePageImage(string source)
         {
-            string path = ImageSavePaths.PageSavePath + source;
+            string dir = _hostingEnvironment.WebRootPath;
+            string path = dir + ImageSavePaths.PageSavePath + source;
             if (File.Exists(path))
             {
                 File.Delete(path);

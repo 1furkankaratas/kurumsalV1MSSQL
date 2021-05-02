@@ -1,17 +1,14 @@
-﻿using System.Collections.Generic;
-using Business.Abstract;
+﻿using Business.Abstract;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
-using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.DTOs;
+using System.Collections.Generic;
 
 namespace Business.Concrete
 {
-    public class CategoryImageManager:ICategoryImageService
+    public class CategoryImageManager : ICategoryImageService
     {
         private readonly ICategoryImageDal _categoryImageDal;
 
@@ -29,7 +26,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<CategoryImage> GetById(int id)
         {
-            return new SuccessDataResult<CategoryImage>(_categoryImageDal.Get(x=>x.Id==id));
+            return new SuccessDataResult<CategoryImage>(_categoryImageDal.Get(x => x.Id == id));
         }
 
         [CacheRemoveAspect("ICategoryImageService.Get")]

@@ -1,14 +1,13 @@
 ﻿
-using System.Collections.Generic;
-using System.IO;
 using Business.Abstract;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
-using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -24,7 +23,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Page>> GetAll()
         {
-            return new SuccessDataResult<List<Page>>(_pageDal.GetAll());
+            return new SuccessDataResult<List<Page>>(_pageDal.GetAll().OrderByDescending(x => x.Id).ToList());
         }
 
         [CacheAspect]
@@ -69,7 +68,7 @@ namespace Business.Concrete
             var result = DeletePageImage(source);
             if (result.Success)
             {
-               _pageDal.Update(page);
+                _pageDal.Update(page);
                 return new SuccessResult(Messages.PageUpdated);
             }
 

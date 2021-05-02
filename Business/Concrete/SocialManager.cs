@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using Business.Abstract;
+﻿using Business.Abstract;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
-using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Concrete
 {
-    public class SocialManager:ISocialService
+    public class SocialManager : ISocialService
     {
         private readonly ISocialDal _socialDal;
 
@@ -22,19 +21,19 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<SocialMedia>> GetAll()
         {
-            return new SuccessDataResult<List<SocialMedia>>(_socialDal.GetAll());
+            return new SuccessDataResult<List<SocialMedia>>(_socialDal.GetAll().OrderByDescending(x => x.Id).ToList());
         }
 
         [CacheAspect]
         public IDataResult<SocialMedia> GetById(int id)
         {
-            return new SuccessDataResult<SocialMedia>(_socialDal.Get(x=>x.Id==id));
+            return new SuccessDataResult<SocialMedia>(_socialDal.Get(x => x.Id == id));
         }
 
         [CacheAspect]
         public IDataResult<List<SocialMedia>> GetByType(string type)
         {
-            return new SuccessDataResult<List<SocialMedia>>(_socialDal.GetAll(x=>x.Type==type));
+            return new SuccessDataResult<List<SocialMedia>>(_socialDal.GetAll(x => x.Type == type));
         }
 
         [CacheRemoveAspect("ISocialService.Get")]

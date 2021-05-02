@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using Business.Abstract;
-using Business.Constants;
-using Business.ValidationRules.FluentValidation;
+﻿using Business.Abstract;
 using Core.Aspects.Autofac.Caching;
-using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.DTOs;
+using System.Collections.Generic;
 
 namespace Business.Concrete
 {
@@ -40,7 +35,7 @@ namespace Business.Concrete
             return new SuccessResult();
 
         }
-        
+
         [CacheRemoveAspect("IGalleryCategoryService.Get")]
         public IResult Delete(GalleryCategory galleryCategory)
         {

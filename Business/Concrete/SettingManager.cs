@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using System.IO;
-using Image = SixLabors.ImageSharp.Image;
 
 namespace Business.Concrete
 {

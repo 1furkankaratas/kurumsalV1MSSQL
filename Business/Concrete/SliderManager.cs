@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Business.Abstract;
+﻿using Business.Abstract;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
-using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Business.Concrete
 {
-    public class SliderManager:ISliderService
+    public class SliderManager : ISliderService
     {
         private readonly ISliderDal _sliderDal;
         private readonly IHostingEnvironment _hostingEnvironment;
@@ -26,13 +25,13 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Slider>> GetAll()
         {
-            return new SuccessDataResult<List<Slider>>(_sliderDal.GetAll());
+            return new SuccessDataResult<List<Slider>>(_sliderDal.GetAll().OrderByDescending(x => x.Id).ToList());
         }
 
         [CacheAspect]
         public IDataResult<Slider> GetById(int sliderId)
         {
-            return new SuccessDataResult<Slider>(_sliderDal.Get(x=>x.Id==sliderId));
+            return new SuccessDataResult<Slider>(_sliderDal.Get(x => x.Id == sliderId));
 
         }
 
@@ -53,9 +52,9 @@ namespace Business.Concrete
                 _sliderDal.Delete(slider);
                 return new SuccessResult(Messages.SliderDeleted);
             }
-            
+
             return new ErrorResult(Messages.GeneralError);
-            
+
         }
 
         [CacheRemoveAspect("ISliderService.Get")]
@@ -70,7 +69,7 @@ namespace Business.Concrete
         private IResult DeleteSliderImage(Slider slider)
         {
             string dir = _hostingEnvironment.WebRootPath;
-            string path = dir+ImageSavePaths.SliderSavePath + slider.Source;
+            string path = dir + ImageSavePaths.SliderSavePath + slider.Source;
             if (File.Exists(path))
             {
                 File.Delete(path);
@@ -78,7 +77,7 @@ namespace Business.Concrete
                 {
                     return new SuccessDataResult<bool>("");
                 }
-                
+
             }
 
             return new ErrorDataResult<bool>(Messages.GeneralError);

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Business.Abstract;
+﻿using Business.Abstract;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
-using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -14,7 +9,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Processing;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -32,7 +30,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<GalleryImage>> GetAll()
         {
-            return new SuccessDataResult<List<GalleryImage>>(_galleryDal.GetAll());
+            return new SuccessDataResult<List<GalleryImage>>(_galleryDal.GetAll().OrderByDescending(x => x.Id).ToList());
         }
 
         [CacheAspect]

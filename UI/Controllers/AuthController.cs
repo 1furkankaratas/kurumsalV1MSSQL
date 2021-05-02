@@ -68,7 +68,7 @@ namespace UI.Controllers
         }
 
         [HttpGet]
-        [Route("cıkıs")]
+        [Route("cikis")]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

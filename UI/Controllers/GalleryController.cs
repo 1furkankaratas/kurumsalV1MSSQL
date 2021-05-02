@@ -8,7 +8,7 @@ using DataAccess.Abstract;
 
 namespace UI.Controllers
 {
-    [Route("Galeri")]
+    [Route("galeri")]
     public class GalleryController : Controller
     {
         private readonly IGalleryService _galleryService;

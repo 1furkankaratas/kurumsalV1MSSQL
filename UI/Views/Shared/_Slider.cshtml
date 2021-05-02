@@ -1,17 +1,41 @@
 ﻿@model List<Entities.Concrete.Slider>
 
-<div class="rev_slider_wrapper fullscreen-container">
-    <div id="slider14" class="rev_slider fullscreenbanner bg-dark" data-version="5.4.8">
-        <ul>
+@if(Model.Count>0){
+<div class="wrapper image-wrapper no-overlay bg-image" data-image-src="">
+    <div class="pt-70"></div>
+    <div class="rev_slider_wrapper autowidth-container">
+        <div id="slider13" class="rev_slider fullscreenbanner" data-version="5.4.8">
+            <ul>
+                @foreach (var slider in Model)
+                {
+                    <li data-transition="slideremovevertical">
+                        <img src="~/image/slider/@slider.Source" alt="">
+                        <div class="tp-caption" data-frames='[{"from":"y:top;","speed":1500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":1000,"to":"y:bottom;opacity:0;","ease":"Power3.easeInOut"}]' data-x="['center','center','center','center']" data-y="['middle','middle','middle','middle']"
+                             data-hoffset="['-225','-225','-225','0']" data-voffset="['0','0','0','0']" data-visibility="['on','on','on','off']" data-width="none" data-height="none" data-type="image" data-responsive_offset="on" style="z-index: 5;"></div>
+                        <div class="tp-caption tp-shape tp-shapewrapper" data-frames='[{"from":"y:bottom;","speed":1500,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":1000,"to":"y:top;opacity:0;","ease":"Power3.easeInOut"}]' data-x="['center','center','center','center']"
+                             data-y="['middle','middle','middle','middle']" data-hoffset="['225','225','225','0']" data-voffset="['0','0','0','0']" data-width="['450','450','450','400']" data-height="['600','600','600','630']" data-responsive_offset="on"
+                             data-textalign="['center','center','center','center']" data-type="shape" data-whitespace="nowrap" style="z-index: 6; background-color: rgba(0, 0, 0, 0.7);"></div>
+                        <div class="tp-caption font-weight-700 color-dark" data-frames='[{"delay":1000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power4.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                             data-x="['center','center','center','center']" data-y="['middle','middle','middle','middle']" data-hoffset="['225','225','225','0']" data-voffset="['-125','-125,'-125,'-125]" data-width="['450','450','450','400']" data-height="none"
+                             data-fontsize="['30','30','30','30']" data-lineheight="['40','40','40','40']" data-textalign="['center','center','center','center']" data-responsive_offset="on" data-type="text" data-whitespace="nowrap" style="z-index: 7; letter-spacing: -1px;">@slider.Name</div>
+                        <div class="tp-caption font-body" data-frames='[{"delay":1500,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power4.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                             data-x="['center','center','center','center']" data-y="['middle','middle','middle','middle']" data-hoffset="['225','225','225','0']" data-voffset="['0','0','0','0']" data-width="['300','300','300','250']" data-height="none"
+                             data-fontsize="['16','16','16','16']" data-lineheight="['26','26','26','26']" data-textalign="['center','center','center','center']" data-responsive_offset="on" data-type="text" data-whitespace="normal" style="z-index: 8;">@slider.Description</div>
+                        
+                            @if (slider.Link != null)
+                            {
+                                <a class="tp-caption btn btn-full-rounded btn-l" data-x="center" data-y="middle" data-hoffset="['225','225','225','0']" data-voffset="['140','140,'140,'140']" data-width="['auto','auto','auto','auto']" data-textalign="['center','center','center','center']"
+                                   data-frames='[{"delay":2000,"speed":2000,"frame":"0","from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","to":"o:1;","ease":"Power4.easeInOut"},{"delay":"wait","speed":300,"frame":"999","to":"auto:auto;","ease":"Power3.easeInOut"}]'
+                                   data-responsive="on" data-responsive_offset="on" style="z-index: 9;" href="@slider.Link">@slider.LinkName</a>
+                            }
+                        
+                    </li>
+                }
 
-            @foreach (var slider in Model)
-            {
-                <li data-transition="zoom" data-thumb="image/slider/@slider.Source"><img src="~/image/slider/@slider.Source" alt="@slider.Name"></li>
-            }
-
-        </ul>
-        @await Component.InvokeAsync("SliderText")
+            </ul>
+            <div class="tp-bannertimer tp-bottom"></div>
+        </div>
     </div>
 </div>
 
-
+}

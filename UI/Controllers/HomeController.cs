@@ -48,7 +48,7 @@ namespace UI.Controllers
             return View();
         }
 
-        [Route("İletisim")]
+        [Route("iletisim")]
         public IActionResult Contact()
         {
 

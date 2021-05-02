@@ -148,6 +148,7 @@ GO
 
 CREATE TABLE [dbo].[CategoryImages] (
   [Id] int  IDENTITY(1,1) NOT NULL,
+  [IsActive] bit default 1  NOT NULL,
   [Name] nvarchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
 )
 GO
@@ -184,6 +185,7 @@ GO
 
 CREATE TABLE [dbo].[GalleryImages] (
   [Id] int  IDENTITY(1,1) NOT NULL,
+  [IsActive] bit default 1  NOT NULL,
   [Description] nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
   [Source] nvarchar(350) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
 )
@@ -204,6 +206,7 @@ GO
 
 CREATE TABLE [dbo].[Pages] (
   [Id] int  IDENTITY(1,1) NOT NULL,
+  [IsActive] bit default 1  NOT NULL,
   [Title] nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
   [Description] nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
   [Image] nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
@@ -256,7 +259,10 @@ GO
 
 CREATE TABLE [dbo].[Sliders] (
   [Id] int  IDENTITY(1,1) NOT NULL,
+  [IsActive] bit default 1  NOT NULL,
   [Name] nvarchar(300) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Description] nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
+  [Link] nvarchar(200) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
   [Source] nvarchar(200) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
 )
 GO
@@ -275,6 +281,7 @@ GO
 
 CREATE TABLE [dbo].[Socials] (
   [Id] int  IDENTITY(1,1) NOT NULL,
+  [IsActive] bit default 1  NOT NULL,
   [Type] nvarchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL,
   [Link] nvarchar(500) COLLATE SQL_Latin1_General_CP1_CI_AS  NULL
 )

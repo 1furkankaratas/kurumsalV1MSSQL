@@ -9,8 +9,10 @@ namespace UI.Models
 {
     public class AddSliderViewModel
     {
-        [Required]
         public string Name { get; set; }
+        public string Description { get; set; }
+        public string Link { get; set; }
+        public string LinkName { get; set; }
         [Required]
         public IFormFile File { get; set; }
     }

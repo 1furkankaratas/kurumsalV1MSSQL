@@ -15,7 +15,7 @@
     <ProjectReference Include="..\Business\Business.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -23,6 +23,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
     </None>
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>

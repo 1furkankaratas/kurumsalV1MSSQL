@@ -20,7 +20,7 @@ using UI.Models;
 namespace UI.Controllers
 {
     [Authorize]
-    [Route("Panel")]
+    [Route("panel")]
     public class ManagementPanelController : Controller
     {
         private readonly IPageService _pageService;
@@ -97,7 +97,7 @@ namespace UI.Controllers
 
 
         [Route("")]
-        [Route("Anasayfa")]
+        [Route("anasayfa")]
         public IActionResult Index()
         {
             AdminIndexViewModel model = new AdminIndexViewModel
@@ -153,7 +153,7 @@ namespace UI.Controllers
             if (source.Success)
             {
 
-                Slider slider = new Slider { Name = model.Name, Source = source.Data };
+                Slider slider = new Slider { Name = model.Name,Link = model.Link,LinkName = model.LinkName,Description = model.Description,Source = source.Data };
 
 
                 var result = _sliderService.Add(slider);

@@ -24,7 +24,7 @@
             <tbody>
                 @foreach (var social in Model)
                 {
-                    <tr>
+                    <tr id="cont-@social.Id">
                         <td>@social.Type</td>
                         <td>@social.Link</td>
                         <td>
@@ -34,7 +34,7 @@
 
                         </td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-danger" onclick="deleteBtnOpen(@social.Id)">
+                            <button type="button" class="btn btn-sm btn-danger btnDel" value="@social.Id">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
@@ -45,28 +45,6 @@
     </div>
 </div>
 
-@foreach (var social in Model)
-{
-    <div class="modal fade" id="@social.Id">
-        <div class="modal-dialog modal-warning">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">@social.Type</h4>
-                    <button class="close" type="button" onclick="deleteBtnClose(@social.Id)"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body">
-                    <p>Bu hesabı silmek istediğinizden emin misiniz?</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" onclick="deleteBtnClose(@social.Id)">İptal</button>
-                    <a class="btn btn-danger" asp-controller="ManagementPanel" asp-action="DeleteSocialAccounts" asp-route-id="@social.Id">Sil</a>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-}
 
 @section Scripts
 {
@@ -87,15 +65,33 @@
         });
     </script>
     <script>
-        var deleteBtnOpen = function (id) {
-            document.getElementById(id).classList = "model fade show";
-            document.getElementById(id).setAttribute("style", "width: 100%; position: fixed; top: 100px; left: 0%; display: block");
-        }
 
-        var deleteBtnClose = function (id) {
-            document.getElementById(id).classList = "model fade";
-            document.getElementById(id).setAttribute("style", "");
-        }
+
+        $(".btnDel").click(function () {
+            let id = $(this).val();
+            var item = $("#cont-" + id);
+            bootbox.confirm("Silmek istediğinizden emin misiniz?",
+                function (result) {
+
+                    if (result) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/panel/sosyal/sil",
+                            data: { id: id },
+                            dataType: 'json',
+                            success: function () {
+                                item.animate({ opacity: 0 }, function () {
+                                    this.remove();
+                                });
+
+                                toastr.success("Silme işlemi başarılı...", "İşlem başarılı");
+                            }
+                        });
+                    }
+
+                });
+        });
+
 
     </script>
 

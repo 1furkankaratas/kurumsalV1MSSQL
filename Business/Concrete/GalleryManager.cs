@@ -93,7 +93,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<GalleryPageListDto>> GetGalleries()
         {
-            return new SuccessDataResult<List<GalleryPageListDto>>(_galleryDal.GetGalleries());
+            return new SuccessDataResult<List<GalleryPageListDto>>(_galleryDal.GetGalleries().OrderByDescending(x => x.Id).ToList());
         }
 
         [CacheRemoveAspect("IGalleryService.Get")]

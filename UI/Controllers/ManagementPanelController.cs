@@ -170,33 +170,7 @@ namespace UI.Controllers
         }
 
 
-        [HttpGet]
-        [Route("slider/sil")]
-        public IActionResult DeleteSlider(int id)
-        {
-            if (id == 0)
-            {
-                ViewData["GeneralError"] = Messages.GeneralError;
-                return RedirectToAction("ListSlider", "ManagementPanel");
-            }
-
-            var data = _sliderService.GetById(id);
-
-            if (data.Data!=null)
-            {
-                var result = _sliderService.Delete(data.Data);
-
-                if (result.Success)
-                {
-                    ViewData["GeneralSuccess"] = result.Message;
-                    return RedirectToAction("ListSlider", "ManagementPanel");
-                }
-            }
-
-            ViewData["GeneralError"] = Messages.GeneralError;
-
-            return RedirectToAction("ListSlider", "ManagementPanel");
-        }
+        
 
 
         //Page
@@ -263,31 +237,7 @@ namespace UI.Controllers
         }
 
 
-        [Route("sayfa/sil")]
-        [HttpGet]
-        public IActionResult DeletePage(int id)
-        {
-            if (id == 0)
-            {
-                ViewData["GeneralError"] = Messages.GeneralError;
-                return RedirectToAction("ListPage", "ManagementPanel");
-            }
-
-            var data = _pageService.GetById(id);
-            if (data.Data!=null)
-            {
-                var result = _pageService.Delete(data.Data);
-
-                if (result.Success)
-                {
-                    ViewData["GeneralSuccess"] = result.Message;
-                    return RedirectToAction("ListPage", "ManagementPanel");
-                }
-            }
-
-            ViewData["GeneralError"] = Messages.GeneralError;
-            return RedirectToAction("ListPage", "ManagementPanel");
-        }
+        
 
 
         [HttpGet]
@@ -421,37 +371,7 @@ namespace UI.Controllers
             return View(categoryImage);
         }
 
-        [Route("kategori/galeri/sil")]
-        [HttpGet]
-        public IActionResult DeleteGalleryCategory(int id)
-        {
-            if (id == 0)
-            {
-                ViewData["GeneralError"] = Messages.GeneralError;
-                return RedirectToAction("ListGalleryCategory", "ManagementPanel");
-            }
-
-            var data = _categoryImageService.GetById(id);
-            if (data.Data!=null)
-            {
-                var result = _categoryImageService.Delete(data.Data);
-                if (result.Success)
-                {
-                    var deleteCategory = _galleryCategoryService.GetCategoryId(data.Data.Id);
-
-                    foreach (var delCat in deleteCategory.Data)
-                    {
-                        _galleryCategoryService.Delete(delCat);
-                    }
-
-                    ViewData["GeneralSuccess"] = result.Message;
-                    return RedirectToAction("ListGalleryCategory", "ManagementPanel");
-                }
-            }
-
-            ViewData["GeneralError"] = Messages.GeneralError;
-            return RedirectToAction("ListGalleryCategory", "ManagementPanel");
-        }
+       
 
         [Route("kategori/galeri/guncelle")]
         [HttpGet]
@@ -885,33 +805,7 @@ namespace UI.Controllers
             return RedirectToAction("Index", "ManagementPanel");
         }
 
-        [HttpGet]
-        [Route("sosyal/sil")]
-        public IActionResult DeleteSocialAccounts(int id)
-        {
-            if (id==0)
-            {
-                ViewData["GeneralError"] = Messages.GeneralError;
-                return RedirectToAction("ListSocialAccounts", "ManagementPanel");
-            }
-
-            var data = _socialService.GetById(id);
-
-            if (data.Data!=null)
-            {
-                var result = _socialService.Delete(data.Data);
-
-                if (result.Success)
-                {
-                    ViewData["GeneralSuccess"] = result.Message;
-                    return RedirectToAction("ListSocialAccounts", "ManagementPanel");
-                }
-            }
-
-            ViewData["GeneralError"] = Messages.GeneralError;
-            return RedirectToAction("ListSocialAccounts", "ManagementPanel");
-
-        }
+        
 
         [HttpGet]
         [Route("sosyal/ekle")]
@@ -1143,6 +1037,80 @@ namespace UI.Controllers
 
             return new JsonResult(Messages.GeneralError);
         }
+
+        [Route("sayfa/sil")]
+        [HttpPost]
+        public JsonResult DeletePage(int id)
+        {
+
+            var data = _pageService.GetById(id);
+            if (data.Data != null)
+            {
+                var result = _pageService.Delete(data.Data);
+
+                if (result.Success)
+                {
+                    return new JsonResult(result.Message);
+                }
+            }
+
+            return new JsonResult(Messages.GeneralError);
+        }
+
+        [Route("kategori/galeri/sil")]
+        [HttpPost]
+        public JsonResult DeleteGalleryCategory(int id)
+        {
+            if (id == 0)
+            {
+                return new JsonResult(Messages.GeneralError);
+            }
+
+            var data = _categoryImageService.GetById(id);
+            if (data.Data != null)
+            {
+                var result = _categoryImageService.Delete(data.Data);
+                if (result.Success)
+                {
+                    var deleteCategory = _galleryCategoryService.GetCategoryId(data.Data.Id);
+
+                    foreach (var delCat in deleteCategory.Data)
+                    {
+                        _galleryCategoryService.Delete(delCat);
+                    }
+
+                    return new JsonResult(Messages.GeneralError);
+                }
+            }
+
+            return new JsonResult(Messages.GeneralError);
+        }
+
+        [HttpPost]
+        [Route("sosyal/sil")]
+        public JsonResult DeleteSocialAccounts(int id)
+        {
+            if (id == 0)
+            {
+                return new JsonResult(Messages.GeneralError);
+            }
+
+            var data = _socialService.GetById(id);
+
+            if (data.Data != null)
+            {
+                var result = _socialService.Delete(data.Data);
+
+                if (result.Success)
+                {
+                    return new JsonResult(result.Message);
+                }
+            }
+
+            return new JsonResult(Messages.GeneralError);
+        }
+
+
 
 
     }

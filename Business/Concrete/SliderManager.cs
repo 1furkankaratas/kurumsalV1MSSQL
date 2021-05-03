@@ -66,6 +66,21 @@ namespace Business.Concrete
         }
 
         [CacheRemoveAspect("ISliderService.Get")]
+        public IResult UpdateWithImage(Slider slider, string source)
+        {
+            Slider sourceSlider = new Slider {Source = source};
+            var result = DeleteSliderImage(sourceSlider);
+            if (result.Success)
+            {
+                _sliderDal.Update(slider);
+                return new SuccessResult(Messages.SliderUpdated);
+            }
+
+            DeleteSliderImage(slider);
+            return new ErrorResult();
+        }
+
+        [CacheRemoveAspect("ISliderService.Get")]
         private IResult DeleteSliderImage(Slider slider)
         {
             string dir = _hostingEnvironment.WebRootPath;

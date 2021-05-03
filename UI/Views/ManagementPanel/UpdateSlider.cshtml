@@ -1,0 +1,57 @@
+﻿@model UpdateSliderViewModel
+@{
+    ViewData["Title"] = "Güncelle - Slider";
+    Layout = "~/Views/Shared/_ManagementPanelLayout.cshtml";
+}
+
+
+<form method="post" enctype="multipart/form-data" asp-controller="ManagementPanel" asp-action="UpdateSlider">
+
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header"><strong>Güncelle</strong> Slider</div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="name">Başlık</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="name" asp-for="Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="description">İçerik</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" id="description" asp-for="Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="link">Link</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="link" asp-for="Link">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="linkName">Link Adı</label>
+                        <div class="col-md-9">
+                            <input class="form-control" id="linkName" asp-for="LinkName">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="file-input">Resim Seç</label>
+                        <div class="col-md-9">
+                            <input id="file-input" type="file" name="File" accept="image/jpeg,image/jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-sm btn-primary" type="submit"> Güncelle</button>
+                    <button class="btn btn-sm btn-danger" type="reset"> Sıfırla</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>

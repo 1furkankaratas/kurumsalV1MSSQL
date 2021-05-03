@@ -27,6 +27,9 @@
                             <button type="button" class="btn btn-sm btn-danger btnDel" value="@slider.Id">
                                 <i class="fas fa-trash"></i>
                             </button>
+                            <a class="btn btn-sm btn-warning" asp-controller="ManagementPanel" asp-action="UpdateSlider" asp-route-id="@slider.Id">
+                                <i class="fas fa-pen"></i>
+                            </a>
                             <label class="c-switch c-switch-label c-switch-pill c-switch-success float-right">
                                 <input class="c-switch-input isActive" type="checkbox" value="@slider.Id" @Html.Raw(slider.IsActive ? "checked" : "")><span class="c-switch-slider" data-checked="✓" data-unchecked="✕"></span>
                             </label>

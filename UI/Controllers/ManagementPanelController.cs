@@ -1,20 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using Business.Abstract;
+﻿using Business.Abstract;
 using Business.Constants;
 using Entities.Concrete;
 using Entities.Concrete.MicrosoftIdentity;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UI.Models;
 
 namespace UI.Controllers
@@ -58,7 +51,7 @@ namespace UI.Controllers
         public IActionResult Register()
         {
             var a = _userManager.Users.ToList();
-            if (a.Count(x=>x.EmailConfirmed == true) == 0)
+            if (a.Count(x => x.EmailConfirmed == true) == 0)
             {
                 return View();
             }
@@ -108,7 +101,7 @@ namespace UI.Controllers
                 SlideCount = _sliderService.GetAll().Data.Count,
                 SocialCount = _socialService.GetAll().Data.Count
             };
-            
+
             return View(model);
         }
 
@@ -153,7 +146,7 @@ namespace UI.Controllers
             if (source.Success)
             {
 
-                Slider slider = new Slider { Name = model.Name,Link = model.Link,LinkName = model.LinkName,Description = model.Description,Source = source.Data };
+                Slider slider = new Slider { Name = model.Name, Link = model.Link, LinkName = model.LinkName, Description = model.Description, Source = source.Data };
 
 
                 var result = _sliderService.Add(slider);
@@ -170,7 +163,93 @@ namespace UI.Controllers
         }
 
 
-        
+        [HttpGet]
+        [Route("slider/guncelle")]
+        public IActionResult UpdateSlider(int id)
+        {
+
+            if (id == 0)
+            {
+                ViewData["GeneralError"] = Messages.GeneralError;
+                return RedirectToAction("ListSlider", "ManagementPanel");
+            }
+
+            var data = _sliderService.GetById(id);
+
+            
+
+            if (data.Data != null)
+            {
+                UpdateSliderViewModel model = new UpdateSliderViewModel
+                {
+                    Link = data.Data.Link,
+                    LinkName = data.Data.LinkName,
+                    Description = data.Data.Description,
+                    Id = data.Data.Id,
+                    Name = data.Data.Name
+                };
+                return View(model);
+            }
+
+            ViewData["GeneralError"] = Messages.GeneralError;
+
+            return RedirectToAction("ListSlider", "ManagementPanel");
+        }
+
+        [HttpPost]
+        [Route("slider/guncelle")]
+        public IActionResult UpdateSlider(UpdateSliderViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["GeneralError"] = Messages.RequiredInput;
+                return View(model);
+            }
+            var data = _sliderService.GetById(model.Id);
+
+            if (data.Data != null)
+            {
+                string oldImage = data.Data.Source;
+
+                data.Data.Link = model.Link;
+                data.Data.Description = model.Description;
+                data.Data.LinkName = model.LinkName;
+                data.Data.Name = model.Name;
+
+                if (model.File != null)
+                {
+                    var source = _galleryService.UploadGalleryImage(model.File, ImageSavePaths.SliderSavePath);
+                    if (source.Success)
+                    {
+                        data.Data.Source = source.Data;
+                        var result = _sliderService.UpdateWithImage(data.Data, oldImage);
+
+                        if (result.Success)
+                        {
+                            ViewData["GeneralSuccess"] = result.Message;
+                            return RedirectToAction("ListSlider", "ManagementPanel");
+                        }
+                    }
+
+                }
+                else
+                {
+                    var result = _sliderService.Update(data.Data);
+                    if (result.Success)
+                    {
+                        ViewData["GeneralSuccess"] = result.Message;
+                        return RedirectToAction("ListSlider", "ManagementPanel");
+                    }
+                }
+            }
+
+
+            ViewData["GeneralError"] = Messages.GeneralError;
+            return RedirectToAction("ListPage", "ManagementPanel");
+        }
+
+
+
 
 
         //Page
@@ -237,7 +316,7 @@ namespace UI.Controllers
         }
 
 
-        
+
 
 
         [HttpGet]
@@ -252,14 +331,14 @@ namespace UI.Controllers
 
             var data = _pageService.GetById(id);
 
-            if (data.Data!=null)
+            if (data.Data != null)
             {
                 return View(data.Data);
             }
 
             ViewData["GeneralError"] = Messages.GeneralError;
 
-            return RedirectToAction("ListPage","ManagementPanel");
+            return RedirectToAction("ListPage", "ManagementPanel");
 
         }
 
@@ -282,7 +361,7 @@ namespace UI.Controllers
             }
             var data = _pageService.GetById(model.Id);
 
-            if (data.Data!=null)
+            if (data.Data != null)
             {
                 string oldImage = data.Data.Image;
 
@@ -293,7 +372,7 @@ namespace UI.Controllers
 
                 if (model.File != null)
                 {
-                    var source = _galleryService.UploadGalleryImage(model.File,ImageSavePaths.PageSavePath);
+                    var source = _galleryService.UploadGalleryImage(model.File, ImageSavePaths.PageSavePath);
                     if (source.Success)
                     {
                         data.Data.Image = source.Data;
@@ -371,7 +450,7 @@ namespace UI.Controllers
             return View(categoryImage);
         }
 
-       
+
 
         [Route("kategori/galeri/guncelle")]
         [HttpGet]
@@ -385,7 +464,7 @@ namespace UI.Controllers
 
             var data = _categoryImageService.GetById(id);
 
-            if (data.Data!=null)
+            if (data.Data != null)
             {
                 CategoryImageUploadViewModel model = new CategoryImageUploadViewModel
                 {
@@ -449,7 +528,7 @@ namespace UI.Controllers
         [HttpGet]
         public IActionResult AddGallery()
         {
-            ViewData["Categories"] = (List<CategoryImage>)(_categoryImageService.GetAll()).Data.Where(x=>x.IsActive).ToList();
+            ViewData["Categories"] = (List<CategoryImage>)(_categoryImageService.GetAll()).Data.Where(x => x.IsActive).ToList();
             return View();
         }
 
@@ -499,7 +578,7 @@ namespace UI.Controllers
             return View(model);
         }
 
-        
+
 
         [Route("galeri/guncelle")]
         [HttpGet]
@@ -514,7 +593,7 @@ namespace UI.Controllers
 
             var data = _galleryService.GetById(id);
 
-            if (data.Data==null)
+            if (data.Data == null)
             {
                 ViewData["GeneralError"] = Messages.GeneralError;
                 return RedirectToAction("ListGallery", "ManagementPanel");
@@ -535,7 +614,7 @@ namespace UI.Controllers
 
 
             ViewData["AllCategories"] = selectBox;
-            
+
 
             return View(model);
         }
@@ -632,7 +711,7 @@ namespace UI.Controllers
                         }
                         else
                         {
-                            
+
                             foreach (var newCat in model.CategoriesId)
                             {
                                 GalleryCategory galleryCategory = new GalleryCategory();
@@ -676,7 +755,7 @@ namespace UI.Controllers
                     }
                     else
                     {
-                        
+
                         foreach (var newCat in model.CategoriesId)
                         {
                             GalleryCategory galleryCategory = new GalleryCategory();
@@ -703,7 +782,7 @@ namespace UI.Controllers
         public IActionResult UpdateSettings()
         {
             var data = _settingService.GetAll();
-            if (data.Data!=null)
+            if (data.Data != null)
             {
                 SettingViewModel model = new SettingViewModel
                 {
@@ -796,7 +875,7 @@ namespace UI.Controllers
         {
             var data = _socialService.GetAll();
 
-            if (data.Data!=null)
+            if (data.Data != null)
             {
                 return View(data.Data);
             }
@@ -805,7 +884,7 @@ namespace UI.Controllers
             return RedirectToAction("Index", "ManagementPanel");
         }
 
-        
+
 
         [HttpGet]
         [Route("sosyal/ekle")]

@@ -16,15 +16,15 @@
                 <div class="card-header"><strong>Ekle</strong> Sayfa</div>
                 <div class="card-body">
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Başlık</label>
+                        <label class="col-md-3 col-form-label" for="Title-input">Başlık</label>
                         <div class="col-md-9">
-                            <input class="form-control" id="text-input" type="text" name="Title" placeholder="Başlık">
+                            <input class="form-control" id="Title-input" type="text" name="Title" placeholder="Başlık">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="text-input">Açıklama</label>
+                        <label class="col-md-3 col-form-label" for="Description-input">Açıklama</label>
                         <div class="col-md-9">
-                            <input class="form-control" id="text-input" type="text" name="Description" placeholder="Açıklama">
+                            <input class="form-control" id="Description-input" type="text" name="Description" placeholder="Açıklama">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -43,15 +43,16 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
-            <textarea hidden="" id="textArea" name="Text"></textarea>
+
             <div class="card">
                 <div class="card-header">Sayfa İçerik</div>
                 <div class="card-body">
+                    <textarea id="editor" asp-for="Text">
+                    
+                    </textarea>
 
-                    <div id="editor">
-                    </div>
                 </div>
                 <div class="card-footer">
                     <button class="btn btn-sm btn-primary" id="send" type="submit"> Kaydet</button>
@@ -65,20 +66,17 @@
 
 @section Styles
 {
-    <link href="~/admin/vendors/quill/css/quill.coreui.css" rel="stylesheet">
+
 }
 @section Scripts
 {
-    <script src="~/admin/vendors/quill/js/quill.min.js"></script>
-    <script src="~/admin/js/text-editor.js"></script>
+    <script src="~/ckeditor4/ckeditor.js"></script>
     <script>
-        
-        document.getElementById("send").onclick = function () { gonder() };
-        function gonder()
-        {
-            var text = document.getElementById("inner-editor").innerHTML;
-            document.getElementById("textArea").innerHTML = text;
-        }
+        CKEDITOR.replace('editor', {
+            filebrowserUploadUrl: '/panel/sayfa/upload-editor',
+            filebrowserBrowseUrl: '/panel/sayfa/view-editor'
+        });
     </script>
+
 }
 

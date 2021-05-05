@@ -52,14 +52,12 @@
                 </div>
 
             </div>
-            <textarea hidden="" id="textArea" name="Text"></textarea>
             <div class="card">
                 <div class="card-header">Sayfa İçerik</div>
                 <div class="card-body">
-
-                    <div id="editor">
+                    <textarea id="editor" name="Text">
                         @Html.Raw(Model.Text)
-                    </div>
+                    </textarea>
                 </div>
                 <div class="card-footer">
                     <button class="btn btn-sm btn-primary" id="send" type="submit"> Güncelle</button>
@@ -73,18 +71,15 @@
 
 @section Styles
 {
-    <link href="~/admin/vendors/quill/css/quill.coreui.css" rel="stylesheet">
+    
 }
 @section Scripts
 {
-    <script src="~/admin/vendors/quill/js/quill.min.js"></script>
-    <script src="~/admin/js/text-editor.js"></script>
+    <script src="~/ckeditor4/ckeditor.js"></script>
     <script>
-        document.getElementById("send").onclick = function () { gonder() };
-        function gonder()
-        {
-            var text = document.getElementById("inner-editor").innerHTML;
-            document.getElementById("textArea").innerHTML = text;
-        }
+        CKEDITOR.replace('editor', {
+            filebrowserUploadUrl: '/panel/sayfa/upload-editor',
+            filebrowserBrowseUrl: '/panel/sayfa/view-editor'
+        });
     </script>
 }

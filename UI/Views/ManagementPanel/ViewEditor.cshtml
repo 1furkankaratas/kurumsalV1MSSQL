@@ -1,0 +1,97 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Editor Fotoğraflar</title>
+    <style>
+        body {
+            font-family: monospace;
+        }
+        #form {
+            width: 600px;
+        }
+
+        #folderExplorer {
+            float: left;
+            width: 100px;
+        }
+
+        #fileExplorer {
+            float: left;
+            width: 680px;
+            border-left: 1px solid #dff0ff;
+        }
+
+        .thumbnail {
+            float: left;
+            margin: 3px;
+            padding: 3px;
+            border: 1px solid #dff0ff;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            padding: 0;
+        }
+    </style>
+
+    <script src="~/admin/vendors/jquery/js/jquery.min.js"></script>
+    <script src="~/ckeditor4/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var funcNum = @(Context.Request.Query["CKEditorFuncNum"]+";");
+            $("#fileExplorer").on('click',
+                'img',
+                function() {
+                    var fileUrl = '/image/editor/' + $(this).attr('title');
+                    window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+                    window.close();
+                }).hover(function() {
+                $(this).css('cursor', 'pointer');
+            });
+        })
+    </script>
+</head>
+<body>
+<div id="fileExplorer">
+    @foreach (var fileInfo in ViewBag.fileInfos)
+    {
+        <div class="thumbnail">
+            <img src="~/image/editor/@fileInfo.Name" alt="thumb" title="@fileInfo.Name" width="120" height="100" />
+            <br />
+            @fileInfo.Name - <a class="imgDel" value="@fileInfo.Name">Sil</a>
+        </div>
+    }
+    <script>
+        $('.imgDel').click(function() {
+            var name = $(this).attr('value');
+
+            $.ajax({
+                type: "POST",
+                url: "/panel/sayfa/imagedelete",
+                data: {
+                    name: name
+                },
+                dataType: 'json',
+                success: function () {
+                    alert("İşlem başarılı");
+                }
+            });
+        })
+    </script>
+
+
+</div>
+</body>
+</html>

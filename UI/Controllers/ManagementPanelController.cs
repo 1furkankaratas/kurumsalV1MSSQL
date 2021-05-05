@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using System;
+using Business.Abstract;
 using Business.Constants;
 using Entities.Concrete;
 using Entities.Concrete.MicrosoftIdentity;
@@ -6,8 +7,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Utilities.Results;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using UI.Models;
 
 namespace UI.Controllers
@@ -23,6 +28,7 @@ namespace UI.Controllers
         private readonly IGalleryService _galleryService;
         private readonly ICategoryImageService _categoryImageService;
         private readonly IGalleryCategoryService _galleryCategoryService;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
 
         private readonly UserManager<AppUser> _userManager;
@@ -31,7 +37,7 @@ namespace UI.Controllers
         private AppUser CurrentUser => _userManager.FindByNameAsync(User.Identity.Name).Result;
 
 
-        public ManagementPanelController(IPageService pageService, ISettingService settingService, ISocialService socialService, ISliderService sliderService, IGalleryService galleryService, ICategoryImageService categoryImageService, IGalleryCategoryService galleryCategoryService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public ManagementPanelController(IPageService pageService, ISettingService settingService, ISocialService socialService, ISliderService sliderService, IGalleryService galleryService, ICategoryImageService categoryImageService, IGalleryCategoryService galleryCategoryService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IWebHostEnvironment hostingEnvironment)
         {
             _pageService = pageService;
             _settingService = settingService;
@@ -42,6 +48,7 @@ namespace UI.Controllers
             _galleryCategoryService = galleryCategoryService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _hostingEnvironment = hostingEnvironment;
         }
 
 
@@ -1201,7 +1208,53 @@ namespace UI.Controllers
             return new JsonResult(Messages.GeneralError);
         }
 
+        [Route("sayfa/upload-editor")]
+        [HttpPost]
+        public JsonResult UploadEditor(IFormFile upload)
+        {
+            string dir = _hostingEnvironment.WebRootPath;
+            string fileName = DateTime.Now.ToString("yyyymmddfff") + new Random().Next(1000, 9999);
+            string extension = Path.GetExtension(upload.FileName);
+            fileName = fileName + extension;
+            string path = dir + ImageSavePaths.EditorSavePath + fileName;
 
+            var stream = new FileStream(path, FileMode.Create);
+            upload.CopyToAsync(stream);
+
+            return new JsonResult(true);
+
+        }
+
+        [Route("sayfa/view-editor")]
+        [HttpGet]
+        public IActionResult ViewEditor()
+        {
+            string dir = _hostingEnvironment.WebRootPath;
+            string path = dir + ImageSavePaths.EditorSavePath;
+            var editorView = new DirectoryInfo(path);
+            ViewBag.fileInfos = editorView.GetFiles();
+
+
+            return View();
+
+        }
+
+        [HttpPost]
+        [Route("sayfa/imagedelete")]
+        public JsonResult DeleteEditorImage(string name)
+        {
+
+            string dir = _hostingEnvironment.WebRootPath;
+
+            string path = dir + ImageSavePaths.EditorSavePath + name;
+
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+
+            return new JsonResult(true);
+        }
 
 
     }

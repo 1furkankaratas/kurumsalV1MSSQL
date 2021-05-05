@@ -1,3 +1,4 @@
+using System;
 using Business.Hubs;
 using Core.DependencyResolvers;
 using Core.Extensions;
@@ -13,7 +14,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using UI.CustomValidation;
+using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace UI
 {
@@ -106,7 +109,15 @@ namespace UI
             });
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    const int durationInSeconds = 60 * 60 * 24;
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] =
+                        "public,max-age=" + durationInSeconds;
+                }
+            });
 
             app.UseRouting();
 

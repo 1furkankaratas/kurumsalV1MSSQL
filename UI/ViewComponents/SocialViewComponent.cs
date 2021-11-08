@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using Business.Abstract;
-using Entities.Concrete;
+﻿using Business.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UI.ViewComponents
 {
-    public class SocialViewComponent:ViewComponent
+    public class SocialViewComponent : ViewComponent
     {
         private readonly ISocialService _socialService;
 

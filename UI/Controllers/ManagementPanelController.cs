@@ -1248,6 +1248,11 @@ namespace UI.Controllers
 
             string path = dir + ImageSavePaths.EditorSavePath + name;
 
+            if (!Directory.Exists(dir + ImageSavePaths.EditorSavePath))
+            {
+                Directory.CreateDirectory(dir + ImageSavePaths.EditorSavePath);
+            }
+
             if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
